@@ -11,10 +11,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.sopt.tokddak.R
 
-class CategoryRvAdapter(var ctx: Context) : RecyclerView.Adapter<CategoryViewHolder>() {
+class CategoryRvAdapter(var ctx: Context, callbackListener: ClickCallbackListener) : RecyclerView.Adapter<CategoryViewHolder>() {
 
     var categoryList = mutableListOf("숙박", "식사", "주류 및 간식", "교통", "쇼핑", "액티비티")
     var flagList = mutableListOf(true, true, true, true, true, true)
+
+    val callbackListener: ClickCallbackListener by lazy { callbackListener }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view: View =
@@ -51,6 +53,14 @@ class CategoryRvAdapter(var ctx: Context) : RecyclerView.Adapter<CategoryViewHol
                     flag = true
                 }
                 flagList[position] = flag
+
+                // flagList의 true 갯수로 선택 버튼 text 설정
+                var count = 0
+                for(flag in flagList){
+                    if(flag == true)
+                        count++
+                }
+                callbackListener.callBack(count)
             }
         }
     }

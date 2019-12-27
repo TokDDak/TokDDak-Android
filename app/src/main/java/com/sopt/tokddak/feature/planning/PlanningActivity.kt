@@ -2,7 +2,6 @@ package com.sopt.tokddak.feature.planning
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.annotation.Nullable
 import com.sopt.tokddak.R
 import java.util.ArrayList
 

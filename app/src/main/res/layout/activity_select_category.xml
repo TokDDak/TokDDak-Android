@@ -48,9 +48,10 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/tv_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="선택 완료"
+        android:text="6단계 선택 완료"
         android:textColor="#ffffff"
         android:textSize="16sp"
         android:textStyle="bold"
