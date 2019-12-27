@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TokDDak</string>
+    <string name="select_category">"<b>"톡톡"</b>"한 여행을 위한\n경비계산을 시작합니다.</string>
 </resources>
