@@ -1,8 +1,13 @@
 # TokDDak-Android
 
 ## 프로젝트 사용 라이브러리
+* androidx: recyclerview, viewpager 등 이용
+* glide: 이미지 로딩
 
-## 프로그램 구조
+## 프로그램 구조(패키지 구조)
+* data: ui 출력 및 통신 시 사용할 데이터 클래스 코드
+* feature: 프로그램 기능별 코드 정리
+  * 각 기능에서 사용한 activity, fragment, adapter 코드 등
 
 ## 핵심 기능 구현 방법
 ### 경비-일정 Drag and Drop
