@@ -41,7 +41,7 @@
     <ImageView
         android:id="@+id/btn_done"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
+        android:layout_height="60dp"
         android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_popup_inset"
+    tools:context=".feature.planning.lodgement.LodgementPopFragment">
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="54dp"
+        android:text="Type"
+        android:textColor="#151617"
+        android:textSize="26sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:text="1박 평균 가격은"
+        android:textColor="#151617"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_type"
+        app:layout_constraintTop_toBottomOf="@+id/tv_type" />
+
+    <TextView
+        android:id="@+id/tv_avgPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="334,000원"
+        android:textColor="@color/colorPrimary"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_message"
+        app:layout_constraintTop_toTopOf="@+id/tv_message" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:text="입니다."
+        android:textColor="#151617"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_avgPrice"
+        app:layout_constraintTop_toTopOf="@+id/tv_avgPrice" />
+
+    <ImageView
+        android:id="@+id/img_topBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="21dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_message" />
+
+    <TextView
+        android:id="@+id/tv_firstHotel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="24dp"
+        android:text="파리 익스펜스 호텔"
+        android:textColor="#151617"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_topBar" />
+
+    <TextView
+        android:id="@+id/tv_firstPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:text="110,000원"
+        android:textColor="#151617"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_firstHotel" />
+
+    <TextView
+        android:id="@+id/tv_secondHotel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:text="인터 컨티넨탈 파리"
+        android:textColor="#151617"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_firstHotel" />
+
+    <TextView
+        android:id="@+id/tv_secondPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:text="110,000원"
+        android:textColor="#151617"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_secondHotel" />
+
+    <TextView
+        android:id="@+id/tv_thirdHotel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="12dp"
+        android:text="인터 컨티넨탈 파리"
+        android:textColor="#151617"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_secondHotel" />
+
+    <TextView
+        android:id="@+id/tv_thirdPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:text="110,000원"
+        android:textColor="#151617"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_thirdHotel" />
+
+    <ImageView
+        android:id="@+id/img_moreHotel"
+        android:layout_width="127dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="18dp"
+        android:src="@drawable/btn_morehotel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_thirdPrice" />
+
+    <ImageView
+        android:id="@+id/img_bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_moreHotel" />
+
+    <TextView
+        android:id="@+id/tv_totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="1,668,000"
+        android:textColor="#151617"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/img_won"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_bottomBar" />
+
+    <ImageView
+        android:id="@+id/img_won"
+        android:layout_width="21dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="5dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_money_korea_black_21x18"
+        app:layout_constraintBottom_toBottomOf="@id/tv_totalPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/tv_totalPrice"
+        app:layout_constraintTop_toTopOf="@+id/tv_totalPrice" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ctn_setter"
+        android:layout_width="148dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/bg_category"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_totalPrice">
+
+        <Button
+            android:id="@+id/btn_minus"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_button_minus"
+            android:text="-"
+            android:textColor="#ffffff"
+            android:textSize="21sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1"
+            android:textColor="#151617"
+            android:textSize="21sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_plus"
+            android:layout_width="44dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_button_plus"
+            android:text="+"
+            android:textColor="#ffffff"
+            android:textSize="21sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_done"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/bg_pop_button"
+        android:text="확인"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ctn_setter" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

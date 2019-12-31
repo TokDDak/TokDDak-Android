@@ -58,11 +58,11 @@ class BeforeTripFragment(var ctx: Context) : Fragment() {
 
     private fun makeDummy(){
         popularAdapter.dataList.add(Destination("파리", R.drawable.img_test))
-        popularAdapter.dataList.add(Destination("파리", R.drawable.img_test))
-        popularAdapter.dataList.add(Destination("파리", R.drawable.img_test))
-        popularAdapter.dataList.add(Destination("파리", R.drawable.img_test))
-        popularAdapter.dataList.add(Destination("파리", R.drawable.img_test))
-        popularAdapter.dataList.add(Destination("파리", R.drawable.img_test))
+        popularAdapter.dataList.add(Destination("도쿄", R.drawable.img_test))
+        popularAdapter.dataList.add(Destination("다낭", R.drawable.img_test))
+        popularAdapter.dataList.add(Destination("뉴욕", R.drawable.img_test))
+        popularAdapter.dataList.add(Destination("타이페이", R.drawable.img_test))
+        popularAdapter.dataList.add(Destination("세부", R.drawable.img_test))
         popularAdapter.notifyDataSetChanged()
     }
 }
