@@ -16,7 +16,7 @@ object TripInfo {
     var tripTotalCost = 0
 
     // 여행지 선택 시 호출
-    fun clear(){
+    fun clear() {
         title = ""
         destination = ""
         startDate = Date()
@@ -45,9 +45,12 @@ data class Food(
     var avgPrice: Int,
     var image: Int
 )
+
 data class Snack(
-    var type: Int,
-    var count: Int
+    var type: String,
+    var count: Int,
+    var avgPrice: Int,
+    var image: Int
 )
 
 data class Activity(
@@ -59,4 +62,3 @@ data class Activity(
     var url: String?,
     var detailInfo: String
 )
-// data class Transportation()

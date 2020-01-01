@@ -3,9 +3,7 @@ package com.sopt.tokddak.feature.main.before_trip
 
 import android.content.Context
 import android.content.Intent
-import android.nfc.NfcAdapter.EXTRA_DATA
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.sopt.tokddak.R
 import com.sopt.tokddak.data.Destination
-import com.sopt.tokddak.feature.planning.SelectCategoryActivity
+import com.sopt.tokddak.feature.planning.select_category.SelectCategoryActivity
 import kotlinx.android.synthetic.main.fragment_before_trip.*
 
 /**

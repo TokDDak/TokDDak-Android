@@ -11,29 +11,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".feature.planning.food.FoodPlanningActivity">
-        </activity>
+        <activity android:name=".feature.planning.snack.SnackPlanningActivity" />
+        <activity android:name=".feature.planning.food.FoodPlanningActivity" />
         <activity
             android:name=".feature.planning.transportation.TransportationPlanningActivity"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".feature.planning.shopping.ShoppingPlanningActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".feature.planning.activity.ActivitesPlanningActivity" />
+        <activity android:name=".feature.planning.lodgement.LodgementPlanningActivity" />
+        <activity android:name=".feature.planning.select_category.SelectCategoryActivity" />
+        <activity
+            android:name=".feature.planning.TitleActivity"
             android:windowSoftInputMode="stateHidden">
-        </activity>
-        <activity android:name=".feature.planning.activity.ActivitesPlanningActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
-        <activity android:name=".feature.planning.lodgement.LodgementPlanningActivity" />
-        <activity android:name=".feature.planning.SelectCategoryActivity" />
-        <activity
-            android:name=".feature.planning.TitleActivity"
-            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".feature.main.MainActivity" />
     </application>
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    tools:context=".feature.planning.SelectCategoryActivity">
+    tools:context=".feature.planning.select_category.SelectCategoryActivity">
 
     <ImageView
         android:id="@+id/img_toBack"

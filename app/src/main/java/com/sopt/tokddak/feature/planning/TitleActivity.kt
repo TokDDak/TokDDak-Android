@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.widget.addTextChangedListener
 import com.sopt.tokddak.R
+import com.sopt.tokddak.feature.planning.select_category.SelectCategoryActivity
 import kotlinx.android.synthetic.main.activity_title.*
 
 class TitleActivity : AppCompatActivity() {
