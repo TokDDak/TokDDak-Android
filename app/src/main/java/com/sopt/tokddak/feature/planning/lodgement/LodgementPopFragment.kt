@@ -1,6 +1,8 @@
 package com.sopt.tokddak.feature.planning.lodgement
 
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -15,6 +17,7 @@ import com.sopt.tokddak.R
 import com.sopt.tokddak.common.toDecimalFormat
 import com.sopt.tokddak.feature.planning.Lodgement
 import com.sopt.tokddak.feature.planning.TripInfo
+import com.sopt.tokddak.feature.planning.WebViewActivity
 import kotlinx.android.synthetic.main.activity_activites_planning.*
 import kotlinx.android.synthetic.main.fragment_lodgement_pop.*
 import kotlinx.android.synthetic.main.fragment_lodgement_pop.btn_done
@@ -29,7 +32,7 @@ class LodgementPopFragment(
     View.OnClickListener {
 
     var count: Int = 1 // default, x 버튼 누를 경우 count = 0으로 변경!
-    val fmManager: FragmentManager = activity!!.supportFragmentManager
+    lateinit var fmManager: FragmentManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +44,11 @@ class LodgementPopFragment(
         dialog?.setCanceledOnTouchOutside(false) // background touch 방지
 
         return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        fmManager = activity!!.supportFragmentManager
     }
 
     override fun onStart() {
@@ -114,6 +122,12 @@ class LodgementPopFragment(
                 // fragment 닫기
                 fmManager.beginTransaction().remove(this@LodgementPopFragment).commit()
                 fmManager.popBackStack()
+            }
+
+            R.id.img_moreHotel -> {
+                val intent = Intent(activity, WebViewActivity::class.java)
+                intent.putExtra("url", "http://web-inf.tistory.com")
+                startActivity(intent)
             }
         }
     }

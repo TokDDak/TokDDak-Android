@@ -1,9 +1,11 @@
 package com.sopt.tokddak.feature.planning.lodgement
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.sopt.tokddak.R
 import com.sopt.tokddak.common.toDecimalFormat
@@ -22,6 +24,10 @@ class LodgementPlanningActivity : AppCompatActivity() {
 
         val intent = intent
         selectedCategoryList = intent.getStringArrayListExtra("selected category list")
+
+        if(selectedCategoryList.isNullOrEmpty()){
+            // stack clear
+        }
 
         btns = listOf(
             img_highest, img_high, img_general, img_cheap

@@ -15,6 +15,12 @@ object TripInfo {
     var transInfo = 0
     var tripTotalCost = 0
 
+    val callbackListener = (object : ClearCallbackListener{
+        override fun callback(activity: android.app.Activity) {
+            activity.finish()
+        }
+    })
+
     // 여행지 선택 시 호출
     fun clear() {
         title = ""

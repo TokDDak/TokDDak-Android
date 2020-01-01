@@ -34,7 +34,7 @@ class CategoryRvAdapter(var ctx: Context, callbackListener: ClickCallbackListene
 
         // 선택 시 boolean 값 리스트에 계속 저장 --> 더 좋은 방법 없나..
         holder.ctnCategory.setOnClickListener {
-            var flag: Boolean = true
+            var flag = true
 
             holder.ctnCategory.setOnClickListener {
                 if (flag == true) {
