@@ -10,17 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sopt.tokddak.R
-import com.sopt.tokddak.data.Activity
-import com.sopt.tokddak.data.Destination
-import com.sopt.tokddak.feature.planning.ClickCallbackListener
-import com.sopt.tokddak.feature.planning.lodgement.Lodgement.totalCount
+import com.sopt.tokddak.feature.planning.Activity
 import kotlinx.android.synthetic.main.activity_activites_planning.*
-import kotlinx.android.synthetic.main.activity_select_category.*
 
 class ActivitesPlanningActivity : AppCompatActivity(), View.OnClickListener {
     private val activities = mutableListOf<Activity>()

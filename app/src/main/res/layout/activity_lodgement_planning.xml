@@ -69,6 +69,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/make_btn_stay_top"
+        android:tag="최고급호텔"
         app:layout_constraintEnd_toStartOf="@+id/img_high"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_price" />
@@ -79,6 +80,7 @@
         android:layout_height="165dp"
         android:layout_marginEnd="28dp"
         android:src="@drawable/make_btn_stay_high"
+        android:tag="고급호텔"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_highest"
         app:layout_constraintTop_toTopOf="@+id/img_highest" />
@@ -90,6 +92,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/make_btn_stay_general"
+        android:tag="일반호텔"
         app:layout_constraintEnd_toStartOf="@+id/img_apartment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_highest" />
@@ -100,6 +103,7 @@
         android:layout_height="165dp"
         android:layout_marginEnd="28dp"
         android:src="@drawable/make_btn_stay_apt"
+        android:tag="아파트"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/img_general"
         app:layout_constraintTop_toTopOf="@+id/img_general" />
@@ -111,6 +115,7 @@
         android:layout_marginStart="28dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/make_btn_stay_hostel"
+        android:tag="호스텔"
         app:layout_constraintEnd_toStartOf="@+id/img_blank"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_general" />

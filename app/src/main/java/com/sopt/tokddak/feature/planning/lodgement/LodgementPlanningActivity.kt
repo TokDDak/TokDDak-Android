@@ -7,139 +7,80 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import com.sopt.tokddak.R
+import com.sopt.tokddak.common.toDecimalFormat
+import com.sopt.tokddak.feature.planning.TripInfo
 import kotlinx.android.synthetic.main.activity_lodgement_planning.*
 import java.text.DecimalFormat
 import kotlin.collections.ArrayList
 
-class LodgementPlanningActivity : AppCompatActivity(), View.OnClickListener {
-
+class LodgementPlanningActivity : AppCompatActivity() {
     var selectedCategoryList: ArrayList<String>? = ArrayList()
-    var isChecked = arrayListOf<Boolean>(false, false, false, false, false)
+    private lateinit var btns: List<ImageView>
+    private lateinit var btnToggleMap: Map<View, Pair<Int, Int>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lodgement_planning)
 
-        val intent = getIntent()
+        val intent = intent
         selectedCategoryList = intent.getStringArrayListExtra("selected category list")
+
+        btns = listOf(
+            img_highest, img_high, img_general, img_hostel, img_apartment
+        )
+        btnToggleMap = mapOf(
+            img_highest to (R.drawable.make_btn_stay_top_active to R.drawable.make_btn_stay_top),
+            img_high to (R.drawable.make_btn_stay_high_active to R.drawable.make_btn_stay_high),
+            img_general to (R.drawable.make_btn_stay_general_active to R.drawable.make_btn_stay_general),
+            img_hostel to (R.drawable.make_btn_stay_hostel_active to R.drawable.make_btn_stay_hostel),
+            img_apartment to (R.drawable.make_btn_stay_apt_active to R.drawable.make_btn_stay_apt)
+        )
 
         init()
     }
 
-    fun init() {
+    private fun init() {
         //onclick listener
-        img_toBack.setOnClickListener(this)
-        img_highest.setOnClickListener(this)
-        btn_done.setOnClickListener(this)
-    }
-
-    override fun onClick(v: View?) {
-        when (v!!.id) {
-            R.id.img_toBack -> {
-                finish()
-            }
-            R.id.img_highest -> {
-
-                if (isChecked[0] == false) {
-                    // 선택되어 있지 않을 경우
-                    isChecked[0] = true
-
-                    // activity view 변경
-                    img_highest.setImageDrawable(
-                        ResourcesCompat.getDrawable(
-                            resources,
-                            R.drawable.make_btn_stay_top_active,
-                            null
-                        )
-                    )
-
-                    // 서버 통신 (avgPrice, example list, url 받아오기) --> 함수
-                    // fragment 생성 시 넘기기 --> 함수
-
-                    // dialog fragment 시작
-                    val fm = LodgementPopFragment("최고급 호텔", 200000, "url")
-                    fm.show(supportFragmentManager, "highest hotel dialog")
-                } else {
-                    // 선택되어 있을 경우
-                    isChecked[0] = false
-
-                    //activity view 변경
-                    img_highest.setImageDrawable(
-                        ResourcesCompat.getDrawable(
-                            resources,
-                            R.drawable.make_btn_stay_top,
-                            null
-                        )
-                    )
-
-                    // 서버에 넘길 데이터 변경
-                    setTotal(0)
+        btns.forEach { view ->
+            view.setOnClickListener {
+                val type = view.tag.toString()
+                if (!view.isSelected) {
+                    //TODO: avgPrice 받아오기
+                    val fm = LodgementPopFragment(type, 200000, "url") {
+                        updateUi()
+                    }
+                    fm.show(supportFragmentManager, null)
                 }
-            }
+                else {
+                    TripInfo.lodgementInfo -= TripInfo.lodgementInfo.find { it.type == type } ?: return@setOnClickListener
+                    updateUi()
+                }
 
-            R.id.img_high -> {
-
             }
+        }
 
-            R.id.btn_done -> {
-                // 서버에 숙박 정보 전달 (함수로 구현,,)
-            }
+        img_toBack.setOnClickListener {
+            finish()
         }
     }
 
-    // 금액 표기 변환
-    fun decimalFormat(input: Int): String {
-        val formatter = DecimalFormat("###,###")
-        return formatter.format(input)
-    }
+    private fun updateUi() {
+        TripInfo.lodgementInfo.let { list ->
+            tv_count.text = list.size.toString()
+            tv_price.text = list.map {
+                it.count * it.avgPrice
+            }.sum().toDecimalFormat()
 
-    fun setTotal(idx: Int){
-        val deletedData = Lodgement.userData[idx]!!
-        Lodgement.totalCount -= deletedData
-        Lodgement.totalPrice -= (deletedData * 200000)
-        Lodgement.userData.remove(idx)
-
-        tv_count.text = Lodgement.totalCount.toString()
-        tv_price.text = decimalFormat(Lodgement.totalPrice)
-    }
-
-
-    // 모듈화 -> 서버에서 받은 정보 리스트에서 꺼내 쓰기 (avg, url 등), idx 이용
-    fun whenSelected(idx: Int, selectedItem: ImageView){
-        if (isChecked[0] == false) {
-            // 선택되어 있지 않을 경우
-            isChecked[0] = true
-
-            // activity view 변경
-            img_highest.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.make_btn_stay_top_active,
-                    null
+            btns.forEach { view ->
+                view.isSelected = view.tag in list.map { it.type }
+                view.setImageDrawable(
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        if (view.isSelected) btnToggleMap[view]!!.first else btnToggleMap[view]!!.second,
+                        null
+                    )
                 )
-            )
-
-            // 서버 통신 (avgPrice, example list, url 받아오기) --> 함수
-            // fragment 생성 시 넘기기 --> 함수
-
-            // dialog fragment 시작
-            val fm = LodgementPopFragment("최고급 호텔", 200000, "url")
-            fm.show(supportFragmentManager, "highest hotel dialog")
-        } else {
-            // 선택되어 있을 경우
-            isChecked[0] = false
-
-            //activity view 변경
-            img_highest.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.make_btn_stay_top,
-                    null
-                )
-            )
-
-            // 서버에 넘길 데이터 변경
-            setTotal(0)
+            }
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.sopt.tokddak.feature.planning.lodgement
 
 
-import android.app.Activity
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -15,11 +14,17 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 
 import com.sopt.tokddak.R
+import com.sopt.tokddak.common.toDecimalFormat
+import com.sopt.tokddak.feature.planning.Lodgement
+import com.sopt.tokddak.feature.planning.TripInfo
 import kotlinx.android.synthetic.main.fragment_lodgement_pop.*
-import org.w3c.dom.Text
-import java.text.DecimalFormat
 
-class LodgementPopFragment(var type: String, var avgPrice: Int, var url: String) : DialogFragment(),
+class LodgementPopFragment(
+    var type: String,
+    var avgPrice: Int,
+    var url: String,
+    val dismissListener: () -> Unit = {}
+) : DialogFragment(),
     View.OnClickListener {
 
     var count: Int = 1 // default, x 버튼 누를 경우 count = 0으로 변경!
@@ -51,11 +56,16 @@ class LodgementPopFragment(var type: String, var avgPrice: Int, var url: String)
         dialog?.window?.setLayout(dialogWidth, dialogHeight)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        dismissListener()
+    }
+
     fun init() {
         // 뷰 설정
         tv_type.text = type
-        tv_avgPrice.text = decimalFormat(avgPrice)
-        tv_totalPrice.text = decimalFormat(avgPrice)
+        tv_avgPrice.text = (avgPrice).toDecimalFormat()
+        tv_totalPrice.text = (avgPrice).toDecimalFormat()
 
         // onclick listener 등록
         btn_done.setOnClickListener(this)
@@ -69,13 +79,9 @@ class LodgementPopFragment(var type: String, var avgPrice: Int, var url: String)
             R.id.btn_done -> {
 
                 // lodgement object 정보 변경
-                Lodgement.totalCount += count
-                Lodgement.totalPrice += (count * avgPrice)
-                Lodgement.userData[0] = count
-                Log.d("map", Lodgement.userData.toString())
-
-                // activity view 변경
-                setActivityView()
+                TripInfo.lodgementInfo += Lodgement(
+                    type, count, avgPrice
+                )
 
                 // fragment 종료 --> 안될 경우 activity 함수 호출하는 방법으로 변경
                 val fmManager: FragmentManager = activity!!.supportFragmentManager
@@ -90,7 +96,7 @@ class LodgementPopFragment(var type: String, var avgPrice: Int, var url: String)
                     tv_count.text = count.toString()
 
                     // total price 변경
-                    tv_totalPrice.text = decimalFormat(avgPrice * count)
+                    tv_totalPrice.text = (avgPrice * count).toDecimalFormat()
                 }
             }
 
@@ -100,50 +106,8 @@ class LodgementPopFragment(var type: String, var avgPrice: Int, var url: String)
                 tv_count.text = count.toString()
 
                 // total price 변경
-                tv_totalPrice.text = decimalFormat(avgPrice * count)
+                tv_totalPrice.text = (avgPrice * count).toDecimalFormat()
             }
         }
     }
-
-    // 금액 표기 변환
-    fun decimalFormat(input: Int): String {
-        val formatter = DecimalFormat("###,###")
-        return formatter.format(input)
-    }
-
-    // !질문!
-    fun setActivityView(){
-        val tvActivityCount: TextView = activity!!.findViewById(R.id.tv_count)
-        tvActivityCount.text = Lodgement.totalCount.toString()
-        val tvActivityPrice: TextView = activity!!.findViewById<TextView>(R.id.tv_price)
-        tvActivityPrice.text = decimalFormat(Lodgement.totalPrice)
-    }
-
-    /*// onCreateView에서 fragment의 dialog로 설정하는듯? 필요없을거같지만 일단 갖고잇어봅시다!
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
-        val view = activity?.layoutInflater?.inflate(R.layout.fragment_lodgement_pop, null)
-        view?.findViewById<TextView>(R.id.tv_type)?.setOnClickListener {
-            dismissDialog()
-            Log.d("fragment button test", "성공")
-        }
-        builder.setView(view)
-
-        return super.onCreateDialog(savedInstanceState)
-
-    }
-
-    private fun dismissDialog() {
-        this.dismiss()
-    }*/
-
-    // constructor
-    /*companion object {
-        private const val ARG_DIALOG_MAIN_MSG = "dialog_main_msg"
-        fun newinstance(mainMsg: String) = LodgementPopFragment().apply {
-            arguments = bundleOf(
-                ARG_DIALOG_MAIN_MSG to mainMsg
-            )
-        }
-    }*/
 }

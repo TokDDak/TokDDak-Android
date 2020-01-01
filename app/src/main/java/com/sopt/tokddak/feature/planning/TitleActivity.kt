@@ -1,5 +1,6 @@
 package com.sopt.tokddak.feature.planning
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -7,6 +8,7 @@ import com.sopt.tokddak.R
 import kotlinx.android.synthetic.main.activity_title.*
 
 class TitleActivity : AppCompatActivity(), View.OnClickListener {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,9 +37,15 @@ class TitleActivity : AppCompatActivity(), View.OnClickListener {
             R.id.img_toBack -> finish()
             R.id.ctn_dateSetter -> {
                 // date picker activity
+
             }
             R.id.btn_done -> {
+                TripInfo.title = edt_tripTitle.text.toString()
+                // TODO: picker 화면에서 object 설정, tv 설
+
                 // select category activity
+                val intent = Intent(this, SelectCategoryActivity::class.java)
+                startActivity(intent)
             }
         }
     }

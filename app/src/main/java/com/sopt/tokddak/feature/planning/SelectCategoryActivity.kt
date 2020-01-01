@@ -65,6 +65,11 @@ class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener {
             R.id.btn_done -> {
                 getSelectedItem()
 
+                if (selectedCategoryList.isEmpty()) {
+                    //TODO: 아이템이 비었을 때 처리
+                    return
+                }
+                selectedCategoryList[0].goCategoryIntent()
                 // selected list 확인 후 0번째 index activity 넘기기
                 when (selectedCategoryList[0]) {
                     "숙박" -> {
@@ -102,5 +107,15 @@ class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
         }
+    }
+
+    private fun String.goCategoryIntent() {
+        val categoryIntent = when(this) {
+            "액티비티" -> Intent(this@SelectCategoryActivity, TitleActivity::class.java)
+            else -> return
+        }.apply {
+            putExtra("selected category list", selectedCategoryList)
+        }
+        startActivity(categoryIntent)
     }
 }
