@@ -1,15 +1,12 @@
 package com.sopt.tokddak.feature.planning.activity
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,9 +32,9 @@ class ActivitesPlanningActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun makeDummy() {
-        activities.add(Activity("파리", 1000, null, R.drawable.img_test, false))
-        activities.add(Activity("세부", 2000, null, R.drawable.img_test, false))
-        activities.add(Activity("뉴욕", 3000, null, R.drawable.img_test, false))
+        activities.add(Activity("파리", 1000, null, R.drawable.img_test, false, null, "ㅎㅎㅎ"))
+        activities.add(Activity("세부", 2000, null, R.drawable.img_test, false, null, "ㅋㅋㅋ"))
+        activities.add(Activity("뉴욕", 3000, null, R.drawable.img_test, false, null, "ㅗㅗㅗ"))
         activityAdapter.notifyDataSetChanged()
     }
 
@@ -64,18 +61,6 @@ class ActivitesPlanningActivity : AppCompatActivity(), View.OnClickListener {
 
         override fun onBindViewHolder(holder: ActivityViewHolder, position: Int) {
             holder.bind(activities[position])
-
-            holder.btnSelect.setOnClickListener {
-                if (activities[position].flag) {
-                    holder.setButtonInactive()
-                    activities[position].flag = false
-                } else {
-                    holder.setButtonActive()
-                    activities[position].flag = true
-                }
-                tv_totalCount.text = activities.filter { it.flag }.size.toString()
-                tv_totalPrice.text = activities.filter { it.flag }.map { it.price }.sum().toString()
-            }
         }
     }
 
@@ -84,6 +69,7 @@ class ActivitesPlanningActivity : AppCompatActivity(), View.OnClickListener {
         val tvName: TextView = v.findViewById(R.id.tv_activityName)
         val tvPrice: TextView = v.findViewById(R.id.tv_price)
         val btnSelect: ImageView = v.findViewById(R.id.btn_select)
+        val ctnActivity: ConstraintLayout = v.findViewById(R.id.ctn_activity)
 
         fun bind(data: Activity) {
             tvName.text = data.name
@@ -106,6 +92,11 @@ class ActivitesPlanningActivity : AppCompatActivity(), View.OnClickListener {
                 }
                 tv_totalCount.text = activities.filter { it.flag }.size.toString()
                 tv_totalPrice.text = activities.filter { it.flag }.map { it.price }.sum().toString()
+            }
+
+            ctnActivity.setOnClickListener {
+                val fm = ActivityDetailFragment(data.name, data.price, data.detailInfo)
+                fm.show(supportFragmentManager, null)
             }
         }
 

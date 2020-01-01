@@ -20,12 +20,11 @@
         android:id="@+id/tv_lodgement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="36dp"
         android:text="숙박"
         android:textColor="#151617"
         android:textSize="28sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_toBack" />
 
@@ -45,89 +44,79 @@
         android:id="@+id/tv_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="14dp"
         android:text="0"
         android:textColor="#151617"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/tv_lodgement"
+        app:layout_constraintStart_toEndOf="@+id/icn_w"
         app:layout_constraintTop_toBottomOf="@+id/tv_lodgement" />
 
     <ImageView
+        android:id="@+id/icn_w"
         android:layout_width="21dp"
         android:layout_height="0dp"
-        android:layout_marginStart="7dp"
+        android:layout_marginStart="4dp"
         android:adjustViewBounds="true"
         android:src="@drawable/img_money_korea_black_21x18"
         app:layout_constraintBottom_toBottomOf="@+id/tv_price"
-        app:layout_constraintStart_toEndOf="@+id/tv_price"
+        app:layout_constraintStart_toStartOf="@id/tv_lodgement"
         app:layout_constraintTop_toTopOf="@+id/tv_price" />
 
-    <ImageView
-        android:id="@+id/img_highest"
-        android:layout_width="165dp"
-        android:layout_height="165dp"
-        android:layout_marginStart="28dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:src="@drawable/make_btn_stay_top"
-        android:tag="최고급호텔"
-        app:layout_constraintEnd_toStartOf="@+id/img_high"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_price" />
-
-    <ImageView
-        android:id="@+id/img_high"
-        android:layout_width="165dp"
-        android:layout_height="165dp"
-        android:layout_marginEnd="28dp"
-        android:src="@drawable/make_btn_stay_high"
-        android:tag="고급호텔"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_highest"
-        app:layout_constraintTop_toTopOf="@+id/img_highest" />
-
-    <ImageView
-        android:id="@+id/img_general"
-        android:layout_width="165dp"
-        android:layout_height="165dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/make_btn_stay_general"
-        android:tag="일반호텔"
-        app:layout_constraintEnd_toStartOf="@+id/img_apartment"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_highest" />
+        app:layout_constraintTop_toBottomOf="@+id/icn_w">
 
-    <ImageView
-        android:id="@+id/img_apartment"
-        android:layout_width="165dp"
-        android:layout_height="165dp"
-        android:layout_marginEnd="28dp"
-        android:src="@drawable/make_btn_stay_apt"
-        android:tag="아파트"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_general"
-        app:layout_constraintTop_toTopOf="@+id/img_general" />
+        <ImageView
+            android:id="@+id/img_highest"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/make_btn_stay_top"
+            android:tag="최고급호텔"
+            app:layout_constraintEnd_toStartOf="@+id/img_high"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/img_hostel"
-        android:layout_width="165dp"
-        android:layout_height="165dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/make_btn_stay_hostel"
-        android:tag="호스텔"
-        app:layout_constraintEnd_toStartOf="@+id/img_blank"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_general" />
+        <ImageView
+            android:id="@+id/img_high"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/make_btn_stay_high"
+            android:tag="고급호텔"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_highest"
+            app:layout_constraintTop_toTopOf="@+id/img_highest" />
 
-    <ImageView
-        android:id="@+id/img_blank"
-        android:layout_width="165dp"
-        android:layout_height="165dp"
-        android:layout_marginEnd="28dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/img_hostel"
-        app:layout_constraintTop_toTopOf="@+id/img_hostel" />
+        <ImageView
+            android:id="@+id/img_general"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/make_btn_stay_general"
+            android:tag="일반호텔"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_highest" />
+
+        <ImageView
+            android:id="@+id/img_cheap"
+            android:layout_width="200dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/make_btn_stay_cheap"
+            android:tag="아파트"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_general" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/btn_done"

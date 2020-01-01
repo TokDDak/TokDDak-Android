@@ -3,4 +3,7 @@
     <color name="colorPrimary">#138bff</color>
     <color name="colorPrimaryDark">#ffffff</color>
     <color name="colorAccent">#ffffff</color>
+    
+    <drawable name="button_enabled">#138bff</drawable>
+    <drawable name="button_disabled">#8bc5ff</drawable>
 </resources>

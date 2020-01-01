@@ -4,11 +4,9 @@ package com.sopt.tokddak.feature.planning.lodgement
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
@@ -17,7 +15,10 @@ import com.sopt.tokddak.R
 import com.sopt.tokddak.common.toDecimalFormat
 import com.sopt.tokddak.feature.planning.Lodgement
 import com.sopt.tokddak.feature.planning.TripInfo
+import kotlinx.android.synthetic.main.activity_activites_planning.*
 import kotlinx.android.synthetic.main.fragment_lodgement_pop.*
+import kotlinx.android.synthetic.main.fragment_lodgement_pop.btn_done
+import kotlinx.android.synthetic.main.fragment_lodgement_pop.tv_totalPrice
 
 class LodgementPopFragment(
     var type: String,
@@ -28,6 +29,7 @@ class LodgementPopFragment(
     View.OnClickListener {
 
     var count: Int = 1 // default, x 버튼 누를 경우 count = 0으로 변경!
+    val fmManager: FragmentManager = activity!!.supportFragmentManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +37,6 @@ class LodgementPopFragment(
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_lodgement_pop, container, false)
 
-        // val dialog: Dialog? = dialog
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // radius 적용
         dialog?.setCanceledOnTouchOutside(false) // background touch 방지
 
@@ -71,6 +72,7 @@ class LodgementPopFragment(
         btn_done.setOnClickListener(this)
         btn_minus.setOnClickListener(this)
         btn_plus.setOnClickListener(this)
+        btn_close.setOnClickListener(this)
         img_moreHotel.setOnClickListener(this)
     }
 
@@ -84,14 +86,13 @@ class LodgementPopFragment(
                 )
 
                 // fragment 종료 --> 안될 경우 activity 함수 호출하는 방법으로 변경
-                val fmManager: FragmentManager = activity!!.supportFragmentManager
                 fmManager.beginTransaction().remove(this@LodgementPopFragment).commit()
                 fmManager.popBackStack()
             }
 
             R.id.btn_minus -> {
                 count = tv_count.text.toString().toInt()
-                if( count != 1){
+                if (count != 1) {
                     count -= 1
                     tv_count.text = count.toString()
 
@@ -107,6 +108,12 @@ class LodgementPopFragment(
 
                 // total price 변경
                 tv_totalPrice.text = (avgPrice * count).toDecimalFormat()
+            }
+
+            R.id.btn_close -> {
+                // fragment 닫기
+                fmManager.beginTransaction().remove(this@LodgementPopFragment).commit()
+                fmManager.popBackStack()
             }
         }
     }

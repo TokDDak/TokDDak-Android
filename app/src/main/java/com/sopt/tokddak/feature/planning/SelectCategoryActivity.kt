@@ -3,20 +3,14 @@ package com.sopt.tokddak.feature.planning
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sopt.tokddak.R
-import com.sopt.tokddak.data.PlanedItem
 import com.sopt.tokddak.feature.planning.lodgement.LodgementPlanningActivity
 import kotlinx.android.synthetic.main.activity_select_category.*
 import kotlinx.android.synthetic.main.activity_select_category.btn_done
 import kotlinx.android.synthetic.main.activity_select_category.img_toBack
 import kotlinx.android.synthetic.main.activity_select_category.tv_count
-import kotlinx.android.synthetic.main.activity_title.*
-import kotlinx.android.synthetic.main.fragment_before_trip.*
 
 class SelectCategoryActivity : AppCompatActivity(), View.OnClickListener {
 

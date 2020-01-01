@@ -27,7 +27,7 @@ object TripInfo {
         transInfo = 0
     }
 
-    //TODO: ㅇㅔ산
+    //TODO: 예산 계산 함수
 }
 
 data class Lodgement(
@@ -50,6 +50,8 @@ data class Activity(
     var price: Int,
     var isSelected: Int?,
     var actImg: Int,
-    var flag: Boolean
+    var flag: Boolean,
+    var url: String?,
+    var detailInfo: String
 )
 // data class Transportation()
