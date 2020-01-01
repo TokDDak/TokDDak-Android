@@ -104,16 +104,17 @@
         android:layout_marginHorizontal="28dp"
         android:layout_marginTop="24dp"
         android:hint="금액을 입력하세요."
+        android:inputType="number"
         android:singleLine="true"
         android:textColor="#151617"
         android:textColorHint="#d5d5d5"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_priceEdt"
-        android:inputType="number"/>
+        app:layout_constraintTop_toBottomOf="@+id/tv_priceEdt" />
 
     <TextView
+        android:id="@+id/tv_unit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="34dp"
@@ -145,5 +146,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btn_done" />
+
+    <ImageView
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="3dp"
+        android:src="@drawable/btn_close"
+        app:layout_constraintBottom_toBottomOf="@+id/edt_shoppingCost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edt_shoppingCost" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

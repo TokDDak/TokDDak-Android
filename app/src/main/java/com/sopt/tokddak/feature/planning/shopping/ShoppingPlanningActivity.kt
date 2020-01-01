@@ -2,6 +2,7 @@ package com.sopt.tokddak.feature.planning.shopping
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.view.isGone
 import androidx.core.widget.addTextChangedListener
 import com.sopt.tokddak.R
 import com.sopt.tokddak.common.toDecimalFormat
@@ -21,10 +22,12 @@ class ShoppingPlanningActivity : AppCompatActivity() {
 
         tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
 
+        btn_cancel.isGone = true
         btn_done.isEnabled = false
         edt_shoppingCost.addTextChangedListener(
             onTextChanged = { _, _, _, _ ->
                 setButtonState()
+                setViewState()
             }
         )
 
@@ -37,9 +40,18 @@ class ShoppingPlanningActivity : AppCompatActivity() {
         img_toBack.setOnClickListener {
             finish()
         }
+
+        btn_cancel.setOnClickListener {
+            edt_shoppingCost.text.clear()
+        }
     }
 
     private fun setButtonState() {
         btn_done.isEnabled = edt_shoppingCost.text.toString() != ""
+    }
+    
+    private fun setViewState(){
+        tv_unit.isGone = edt_shoppingCost.text.toString() != ""
+        btn_cancel.isGone = edt_shoppingCost.text.toString() == ""
     }
 }
