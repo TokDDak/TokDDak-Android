@@ -40,8 +40,10 @@ data class Lodgement(
 )
 
 data class Food(
-    var type: Int,
-    var count: Int
+    var type: String,
+    var count: Int,
+    var avgPrice: Int,
+    var image: Int
 )
 data class Snack(
     var type: Int,

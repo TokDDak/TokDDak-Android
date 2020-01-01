@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".feature.planning.lodgement.LodgementPlanningActivity">
 
     <ImageView
@@ -75,8 +76,8 @@
             android:id="@+id/img_highest"
             android:layout_width="200dp"
             android:layout_height="0dp"
-            android:adjustViewBounds="true"
             android:layout_marginEnd="4dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/make_btn_stay_top"
             android:tag="최고급호텔"
             app:layout_constraintEnd_toStartOf="@+id/img_high"
@@ -87,8 +88,8 @@
             android:id="@+id/img_high"
             android:layout_width="200dp"
             android:layout_height="0dp"
-            android:adjustViewBounds="true"
             android:layout_marginStart="4dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/make_btn_stay_high"
             android:tag="고급호텔"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,8 +100,8 @@
             android:id="@+id/img_general"
             android:layout_width="200dp"
             android:layout_height="0dp"
-            android:adjustViewBounds="true"
             android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
             android:src="@drawable/make_btn_stay_general"
             android:tag="일반호텔"
             app:layout_constraintStart_toStartOf="parent"

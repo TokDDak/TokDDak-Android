@@ -2,6 +2,7 @@ package com.sopt.tokddak.feature.planning.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -12,9 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sopt.tokddak.R
 import com.sopt.tokddak.feature.planning.Activity
+import com.sopt.tokddak.feature.planning.TripInfo
 import kotlinx.android.synthetic.main.activity_activites_planning.*
 
-class ActivitesPlanningActivity : AppCompatActivity(), View.OnClickListener {
+class ActivitesPlanningActivity : AppCompatActivity() {
     private val activities = mutableListOf<Activity>()
     private val activityAdapter: ActivityRvAdapter = ActivityRvAdapter()
 
@@ -29,6 +31,15 @@ class ActivitesPlanningActivity : AppCompatActivity(), View.OnClickListener {
     private fun init() {
         rv_activities.adapter = activityAdapter
         rv_activities.layoutManager = LinearLayoutManager(this)
+
+        img_toBack.setOnClickListener {
+            finish()
+        }
+
+        btn_done.setOnClickListener {
+            TripInfo.activityInfo += activities.filter { it.flag }
+            Log.d("테스트", TripInfo.activityInfo.toString())
+        }
     }
 
     private fun makeDummy() {
@@ -36,15 +47,6 @@ class ActivitesPlanningActivity : AppCompatActivity(), View.OnClickListener {
         activities.add(Activity("세부", 2000, null, R.drawable.img_test, false, null, "ㅋㅋㅋ"))
         activities.add(Activity("뉴욕", 3000, null, R.drawable.img_test, false, null, "ㅗㅗㅗ"))
         activityAdapter.notifyDataSetChanged()
-    }
-
-    override fun onClick(view: View?) {
-        when (view!!.id) {
-            R.id.img_toBack -> finish()
-            R.id.btn_done -> {
-                // 서버 통신
-            }
-        }
     }
 
     private inner class ActivityRvAdapter :
