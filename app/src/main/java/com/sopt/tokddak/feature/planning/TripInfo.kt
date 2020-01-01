@@ -13,7 +13,9 @@ object TripInfo {
     var activityInfo = listOf<Activity>()
     var shoppingInfo = 0
     var transInfo = 0
+    var tripTotalCost = 0
 
+    // 여행지 선택 시 호출
     fun clear(){
         title = ""
         destination = ""
@@ -25,6 +27,7 @@ object TripInfo {
         activityInfo = listOf()
         shoppingInfo = 0
         transInfo = 0
+        tripTotalCost = 0
     }
 
     //TODO: 예산 계산 함수

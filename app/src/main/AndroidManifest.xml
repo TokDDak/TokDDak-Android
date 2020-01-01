@@ -11,22 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".feature.planning.activity.ActivitesPlanningActivity">
-
-        </activity>
-        <activity android:name=".feature.planning.lodgement.LodgementPlanningActivity" />
-        <activity android:name=".feature.planning.SelectCategoryActivity"/>
-
+        <activity android:name=".feature.planning.transportation.TransportationPlanningActivity"></activity>
         <activity
-            android:name=".feature.planning.TitleActivity"
+            android:name=".feature.planning.shopping.ShoppingPlanningActivity"
             android:windowSoftInputMode="stateHidden">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".feature.planning.activity.ActivitesPlanningActivity" />
+        <activity android:name=".feature.planning.lodgement.LodgementPlanningActivity" />
+        <activity android:name=".feature.planning.SelectCategoryActivity" />
+        <activity
+            android:name=".feature.planning.TitleActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".feature.main.MainActivity" />
     </application>
 

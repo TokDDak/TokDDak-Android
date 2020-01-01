@@ -5,6 +5,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    
+
     <string name="sample_detail">Make your dream comes true! 많은 관광객에게 사랑받는 파리 디즈니랜드는 세계에서 4번째로 큰 디즈니랜드로 프랑스 특유의 개성을 반영한 아름답고 신비한 분위기를 자아냅니다. 디즈니랜드와 월트디즈니 두 군데 모두 이용하는 1day 2park 티켓이 인기가 많습니다.</string>
+    <string name="explanation">*해당 도시의 물가를 반영한 평균비용으로 산정되었습니다.</string>
 </resources>
