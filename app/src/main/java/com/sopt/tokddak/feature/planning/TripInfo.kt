@@ -3,6 +3,7 @@ package com.sopt.tokddak.feature.planning
 import java.util.*
 
 object TripInfo {
+    var country = ""
     var title = ""
     var destination = ""
     var startDate = Date()
@@ -11,18 +12,13 @@ object TripInfo {
     var foodInfo = listOf<Food>()
     var snackInfo = listOf<Snack>()
     var activityInfo = listOf<Activity>()
-    var shoppingInfo = 0
-    var transInfo = 0
+    var shoppingInfo: Int = 0
+    var transInfo: Int = 0
     var tripTotalCost = 0
-
-    val callbackListener = (object : ClearCallbackListener{
-        override fun callback(activity: android.app.Activity) {
-            activity.finish()
-        }
-    })
 
     // 여행지 선택 시 호출
     fun clear() {
+        country = ""
         title = ""
         destination = ""
         startDate = Date()

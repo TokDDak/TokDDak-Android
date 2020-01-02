@@ -3,6 +3,7 @@ package com.sopt.tokddak.feature.planning.select_category
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sopt.tokddak.R
 import com.sopt.tokddak.feature.planning.TitleActivity
@@ -57,41 +58,6 @@ class SelectCategoryActivity : AppCompatActivity() {
             getSelectedItem()
 
             selectedCategoryList[0].goCategoryIntent()
-            // selected list 확인 후 0번째 index activity 넘기기
-            when (selectedCategoryList[0]) {
-                "숙박" -> {
-                    selectedCategoryList.removeAt(0) // 넘어갈 activity는 selected category에서 제거 후 putextra
-
-                    val intent = Intent(this, LodgementPlanningActivity::class.java)
-                    intent.putExtra("selected category list", selectedCategoryList)
-                    startActivity(intent)
-                }
-                "식사" -> {
-                    selectedCategoryList.removeAt(0)
-                    val intent = Intent(this, FoodPlanningActivity::class.java)
-                    startActivity(intent)
-                }
-                "주류 및 간식" -> {
-                    selectedCategoryList.removeAt(0)
-                    val intent = Intent(this, SnackPlanningActivity::class.java)
-                    startActivity(intent)
-                }
-                "교통" -> {
-                    selectedCategoryList.removeAt(0)
-                    val intent = Intent(this, TransportationPlanningActivity::class.java)
-                    startActivity(intent)
-                }
-                "쇼핑" -> {
-                    selectedCategoryList.removeAt(0)
-                    val intent = Intent(this, ShoppingPlanningActivity::class.java)
-                    startActivity(intent)
-                }
-                "액티비티" -> {
-                    selectedCategoryList.removeAt(0)
-                    val intent = Intent(this, ActivitesPlanningActivity::class.java)
-                    startActivity(intent)
-                }
-            }
         }
     }
 
@@ -106,8 +72,14 @@ class SelectCategoryActivity : AppCompatActivity() {
     }
 
     private fun String.goCategoryIntent() {
+        selectedCategoryList.removeAt(0)
         val categoryIntent = when (this) {
-            "액티비티" -> Intent(this@SelectCategoryActivity, TitleActivity::class.java)
+            "숙박" -> Intent(this@SelectCategoryActivity, LodgementPlanningActivity::class.java)
+            "식사" -> Intent(this@SelectCategoryActivity, FoodPlanningActivity::class.java)
+            "주류 및 간식" -> Intent(this@SelectCategoryActivity, SnackPlanningActivity::class.java)
+            "교통" -> Intent(this@SelectCategoryActivity, TransportationPlanningActivity::class.java)
+            "쇼핑" -> Intent(this@SelectCategoryActivity, ShoppingPlanningActivity::class.java)
+            "액티비티" -> Intent(this@SelectCategoryActivity, ActivitesPlanningActivity::class.java)
             else -> return
         }.apply {
             putExtra("selected category list", selectedCategoryList)

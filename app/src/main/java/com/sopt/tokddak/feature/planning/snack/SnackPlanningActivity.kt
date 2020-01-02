@@ -1,5 +1,6 @@
 package com.sopt.tokddak.feature.planning.snack
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +17,11 @@ import com.sopt.tokddak.R
 import com.sopt.tokddak.common.toDecimalFormat
 import com.sopt.tokddak.feature.planning.Snack
 import com.sopt.tokddak.feature.planning.TripInfo
+import com.sopt.tokddak.feature.planning.activity.ActivitesPlanningActivity
+import com.sopt.tokddak.feature.planning.food.FoodPlanningActivity
+import com.sopt.tokddak.feature.planning.lodgement.LodgementPlanningActivity
+import com.sopt.tokddak.feature.planning.shopping.ShoppingPlanningActivity
+import com.sopt.tokddak.feature.planning.transportation.TransportationPlanningActivity
 import kotlinx.android.synthetic.main.activity_snack_planning.*
 import kotlin.math.log
 
@@ -23,9 +30,14 @@ class SnackPlanningActivity : AppCompatActivity() {
     private val snacks = mutableListOf<Snack>()
     private val snackAdapter = SnackRvAdapter()
 
+    var selectedCategoryList: ArrayList<String> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_snack_planning)
+
+        val intent = intent
+        selectedCategoryList = intent.getStringArrayListExtra("selected category list")
 
         init()
         setList()
@@ -43,6 +55,11 @@ class SnackPlanningActivity : AppCompatActivity() {
             TripInfo.tripTotalCost += snacks.map { it.count * it.avgPrice }.sum()
             TripInfo.snackInfo += snacks
             Log.d("테스트", TripInfo.snackInfo.toString())
+
+            if(selectedCategoryList.isNullOrEmpty()){
+                // TODO: 예산 산정 완료 뷰, activity stack clear
+            } else
+                selectedCategoryList[0].goCategoryIntent()
         }
     }
 
@@ -52,6 +69,22 @@ class SnackPlanningActivity : AppCompatActivity() {
         snacks.add(Snack("디저트", 0, 21000, R.drawable.img_snacks_bakery))
         snacks.add(Snack("펍 & 바", 0, 30000, R.drawable.img_snacks_pubnbar))
         snackAdapter.notifyDataSetChanged()
+    }
+
+    private fun String.goCategoryIntent() {
+        selectedCategoryList.removeAt(0)
+        val categoryIntent = when (this) {
+            "숙박" -> Intent(this@SnackPlanningActivity, LodgementPlanningActivity::class.java)
+            "식사" -> Intent(this@SnackPlanningActivity, FoodPlanningActivity::class.java)
+            "주류 및 간식" -> Intent(this@SnackPlanningActivity, SnackPlanningActivity::class.java)
+            "교통" -> Intent(this@SnackPlanningActivity, TransportationPlanningActivity::class.java)
+            "쇼핑" -> Intent(this@SnackPlanningActivity, ShoppingPlanningActivity::class.java)
+            "액티비티" -> Intent(this@SnackPlanningActivity, ActivitesPlanningActivity::class.java)
+            else -> return
+        }.apply {
+            putExtra("selected category list", selectedCategoryList)
+        }
+        startActivity(categoryIntent)
     }
 
     private inner class SnackRvAdapter :
