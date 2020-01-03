@@ -24,6 +24,8 @@ class TitleActivity : AppCompatActivity() {
 
     fun init(){
 
+        TripInfo.clear()
+
         // bring to front
         ctn_dateSetter.bringToFront()
         img_arrow.bringToFront()

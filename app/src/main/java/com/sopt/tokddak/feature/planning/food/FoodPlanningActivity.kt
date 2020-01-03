@@ -90,10 +90,6 @@ class FoodPlanningActivity : AppCompatActivity() {
 
     fun setList() {
         // 서버 평균 가격 통신
-        foods.add(Food("고급음식점", 0, foodsData[0].cost, R.drawable.img_food_top))
-        foods.add(Food("일반음식점", 0, foodsData[1].cost, R.drawable.img_food_general))
-        foods.add(Food("간편식", 0, foodsData[2].cost, R.drawable.img_food_simple))
-        foodAdapter.notifyDataSetChanged()
     }
 
     private fun String.goCategoryIntent() {
@@ -138,6 +134,10 @@ class FoodPlanningActivity : AppCompatActivity() {
                             val temp = response.body()!!.foodResult.result
                             if(temp.isNotEmpty()){
                                 foodsData.addAll(temp)
+                                foods.add(Food("고급음식점", 0, foodsData[2].cost, R.drawable.img_food_top))
+                                foods.add(Food("일반음식점", 0, foodsData[1].cost, R.drawable.img_food_general))
+                                foods.add(Food("간편식", 0, foodsData[0].cost, R.drawable.img_food_simple))
+                                foodAdapter.notifyDataSetChanged()
                                 Log.d("테스트 temp", temp.toString())
                                 Log.d("테스트 foodsData", foodsData.toString())
                             }

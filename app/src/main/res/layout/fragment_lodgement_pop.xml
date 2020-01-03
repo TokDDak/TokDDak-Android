@@ -74,7 +74,7 @@
 
     <TextView
         android:id="@+id/tv_firstHotel"
-        android:layout_width="wrap_content"
+        android:layout_width="117dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="24dp"
@@ -97,7 +97,7 @@
 
     <TextView
         android:id="@+id/tv_secondHotel"
-        android:layout_width="wrap_content"
+        android:layout_width="117dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="12dp"
@@ -120,7 +120,7 @@
 
     <TextView
         android:id="@+id/tv_thirdHotel"
-        android:layout_width="wrap_content"
+        android:layout_width="117dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="12dp"

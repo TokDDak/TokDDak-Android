@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.view.isGone
 import androidx.core.widget.addTextChangedListener
+import com.bumptech.glide.Glide
 import com.sopt.tokddak.R
+import com.sopt.tokddak.api.GetTransData
+import com.sopt.tokddak.api.PlanningServiceImpl
 import com.sopt.tokddak.common.toDecimalFormat
 import com.sopt.tokddak.feature.planning.TripInfo
 import com.sopt.tokddak.feature.planning.activity.ActivitesPlanningActivity
@@ -15,6 +18,9 @@ import com.sopt.tokddak.feature.planning.lodgement.LodgementPlanningActivity
 import com.sopt.tokddak.feature.planning.shopping.ShoppingPlanningActivity
 import com.sopt.tokddak.feature.planning.snack.SnackPlanningActivity
 import kotlinx.android.synthetic.main.activity_transportation_planning.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class TransportationPlanningActivity : AppCompatActivity() {
 
@@ -40,6 +46,7 @@ class TransportationPlanningActivity : AppCompatActivity() {
     }
 
     fun init() {
+        getTransImage()
 
         tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
 
@@ -54,7 +61,7 @@ class TransportationPlanningActivity : AppCompatActivity() {
 
         btn_done.setOnClickListener {
             transCost = edt_transCost.text.toString().toInt()
-            TripInfo.shoppingInfo = transCost
+            TripInfo.transInfo = transCost
             TripInfo.tripTotalCost += transCost
 
             if(selectedCategoryList.isNullOrEmpty()){
@@ -97,5 +104,35 @@ class TransportationPlanningActivity : AppCompatActivity() {
             putExtra("selected category list", passSelectCategoryList)
         }
         startActivity(categoryIntent)
+    }
+
+    fun getTransImage() {
+        val call: Call<GetTransData> =
+            PlanningServiceImpl.planningService.getTransportation(
+                "application/json",
+                2
+            )
+
+        call.enqueue(
+            object : Callback<GetTransData> {
+
+                override fun onFailure(call: Call<GetTransData>, t: Throwable) {
+                    Log.e(this::class.java.name, "network error : $t")
+                }
+
+                override fun onResponse(
+                    call: Call<GetTransData>,
+                    response: Response<GetTransData>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.status == 200) {
+                            Glide.with(this@TransportationPlanningActivity)
+                                .load(response.body()!!.data[0].img).into(img_transInfo)
+
+                        }
+                    }
+                }
+            }
+        )
     }
 }

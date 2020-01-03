@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.view.isGone
 import androidx.core.widget.addTextChangedListener
+import com.bumptech.glide.Glide
 import com.sopt.tokddak.R
+import com.sopt.tokddak.api.GetShoppingData
+import com.sopt.tokddak.api.PlanningServiceImpl
 import com.sopt.tokddak.common.toDecimalFormat
 import com.sopt.tokddak.feature.planning.TripInfo
 import com.sopt.tokddak.feature.planning.activity.ActivitesPlanningActivity
@@ -15,6 +18,9 @@ import com.sopt.tokddak.feature.planning.lodgement.LodgementPlanningActivity
 import com.sopt.tokddak.feature.planning.snack.SnackPlanningActivity
 import com.sopt.tokddak.feature.planning.transportation.TransportationPlanningActivity
 import kotlinx.android.synthetic.main.activity_shopping_planning.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ShoppingPlanningActivity : AppCompatActivity() {
 
@@ -41,6 +47,8 @@ class ShoppingPlanningActivity : AppCompatActivity() {
 
     fun init() {
 
+        getShoppingImage()
+
         tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
 
         btn_cancel.isGone = true
@@ -62,7 +70,7 @@ class ShoppingPlanningActivity : AppCompatActivity() {
             Log.d("토탈 코스트", TripInfo.tripTotalCost.toString())
             Log.d("쇼핑 코스트", shoppingCost.toString())
 
-            if(selectedCategoryList.isNullOrEmpty()){
+            if (selectedCategoryList.isNullOrEmpty()) {
                 // TODO: 예산 산정 완료 뷰, activity stack clear
             } else
                 selectedCategoryList[0].goCategoryIntent()
@@ -81,8 +89,8 @@ class ShoppingPlanningActivity : AppCompatActivity() {
     private fun setButtonState() {
         btn_done.isEnabled = edt_shoppingCost.text.toString() != ""
     }
-    
-    private fun setViewState(){
+
+    private fun setViewState() {
         tv_unit.isGone = edt_shoppingCost.text.toString() != ""
         btn_cancel.isGone = edt_shoppingCost.text.toString() == ""
     }
@@ -95,7 +103,10 @@ class ShoppingPlanningActivity : AppCompatActivity() {
             "숙박" -> Intent(this@ShoppingPlanningActivity, LodgementPlanningActivity::class.java)
             "식사" -> Intent(this@ShoppingPlanningActivity, FoodPlanningActivity::class.java)
             "주류 및 간식" -> Intent(this@ShoppingPlanningActivity, SnackPlanningActivity::class.java)
-            "교통" -> Intent(this@ShoppingPlanningActivity, TransportationPlanningActivity::class.java)
+            "교통" -> Intent(
+                this@ShoppingPlanningActivity,
+                TransportationPlanningActivity::class.java
+            )
             "쇼핑" -> Intent(this@ShoppingPlanningActivity, ShoppingPlanningActivity::class.java)
             "액티비티" -> Intent(this@ShoppingPlanningActivity, ActivitesPlanningActivity::class.java)
             else -> return
@@ -103,5 +114,35 @@ class ShoppingPlanningActivity : AppCompatActivity() {
             putExtra("selected category list", passSelectCategoryList)
         }
         startActivity(categoryIntent)
+    }
+
+    fun getShoppingImage() {
+        val call: Call<GetShoppingData> =
+            PlanningServiceImpl.planningService.getShopping(
+                "application/json",
+                2
+            )
+
+        call.enqueue(
+            object : Callback<GetShoppingData> {
+
+                override fun onFailure(call: Call<GetShoppingData>, t: Throwable) {
+                    Log.e(this::class.java.name, "network error : $t")
+                }
+
+                override fun onResponse(
+                    call: Call<GetShoppingData>,
+                    response: Response<GetShoppingData>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.status == 200) {
+                            Glide.with(this@ShoppingPlanningActivity)
+                                .load(response.body()!!.data[0].img).into(img_shoppingInfo)
+
+                        }
+                    }
+                }
+            }
+        )
     }
 }

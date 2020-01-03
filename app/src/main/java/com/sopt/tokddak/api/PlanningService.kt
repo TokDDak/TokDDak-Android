@@ -24,6 +24,18 @@ interface PlanningService {
         @Header("Content-Type") content_type: String,
         @Path("CityId") CityId : Int
     ): Call<GetActivityData>
+
+    @GET("citys/{CityId}/Shoppingimg")
+    fun getShopping(
+        @Header("Content-Type") content_type: String,
+        @Path("CityId") CityId : Int
+    ): Call<GetShoppingData>
+
+    @GET("citys/{CityId}/Transportimg")
+    fun getTransportation(
+        @Header("Content-Type") content_type: String,
+        @Path("CityId") CityId : Int
+    ): Call<GetTransData>
 }
 
 data class GetLodgeData(
@@ -89,3 +101,25 @@ data class GetActivityData(
     val img: String,
     val CityId: Int
 )*/
+
+data class GetShoppingData(
+    val status: Int,
+    val message: String,
+    val success: Boolean,
+    val data: List<ShoppingData>
+)
+
+data class ShoppingData(
+    val img: String
+)
+
+data class GetTransData(
+    val status: Int,
+    val message: String,
+    val success: Boolean,
+    val data: List<TransData>
+)
+
+data class TransData(
+    val img: String
+)

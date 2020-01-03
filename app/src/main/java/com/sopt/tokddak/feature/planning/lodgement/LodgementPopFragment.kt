@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,6 +96,8 @@ class LodgementPopFragment(
                 TripInfo.lodgementInfo += Lodgement(
                     type, count, avgPrice
                 )
+                Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
+
 
                 // fragment 종료 --> 안될 경우 activity 함수 호출하는 방법으로 변경
                 fmManager.beginTransaction().remove(this@LodgementPopFragment).commit()

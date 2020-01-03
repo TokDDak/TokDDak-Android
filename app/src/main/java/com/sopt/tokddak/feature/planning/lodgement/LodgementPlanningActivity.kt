@@ -55,6 +55,7 @@ class LodgementPlanningActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         TripInfo.tripTotalCost -= TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum()
+        Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
         Log.d("총 금액", TripInfo.tripTotalCost.toString())
     }
 
@@ -81,6 +82,7 @@ class LodgementPlanningActivity : AppCompatActivity() {
                 } else {
                     TripInfo.lodgementInfo -= TripInfo.lodgementInfo.find { it.type == type }
                         ?: return@setOnClickListener
+                    Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
                     updateUi()
                 }
 
@@ -93,6 +95,7 @@ class LodgementPlanningActivity : AppCompatActivity() {
 
         btn_done.setOnClickListener {
             TripInfo.tripTotalCost += TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum()
+            Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
             if (selectedCategoryList.isNullOrEmpty()) {
                 // TODO: 예산 산정 완료 뷰, activity stack clear
             } else
@@ -103,6 +106,7 @@ class LodgementPlanningActivity : AppCompatActivity() {
     private fun updateUi() {
         TripInfo.lodgementInfo.let { list ->
             // tv_count.text = list.size.toString()
+            Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
             tv_count.text = list.map { it.count }.sum().toString()
             tv_price.text = (TripInfo.tripTotalCost + list.map {
                 it.count * it.avgPrice

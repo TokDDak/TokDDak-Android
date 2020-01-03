@@ -27,9 +27,6 @@ class PlanningResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planning_result)
 
-        lodgementInfo += Lodgement("zz", 2, 2000)
-        foodInfo += Food("fff", 2, 300, 0)
-        snackInfo += Snack("fff", 2, 100, 0)
         // activityInfo += Activity("dd", 300000, null, 0, false, null, "zzz")
 
 
@@ -109,7 +106,8 @@ class PlanningResultActivity : AppCompatActivity() {
         }
 
         btn_done.setOnClickListener {
-            // popup
+            val fm = ResultPopFragment()
+            fm.show(supportFragmentManager, null)
         }
     }
 

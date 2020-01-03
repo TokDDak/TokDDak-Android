@@ -1,6 +1,7 @@
 package com.sopt.tokddak.feature.planning.result
 
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -13,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 
 import com.sopt.tokddak.R
+import com.sopt.tokddak.feature.planning.WebViewActivity
 import kotlinx.android.synthetic.main.fragment_result_pop.*
 
 /**
@@ -27,7 +29,7 @@ class ResultPopFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_lodgement_pop, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_result_pop, container, false)
 
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT)) // radius 적용
         dialog?.setCanceledOnTouchOutside(false) // background touch 방지
@@ -61,7 +63,15 @@ class ResultPopFragment : DialogFragment() {
         }
 
         btn_done.setOnClickListener{
-            // intent 일정 계획
+            val intent = Intent(activity, WebViewActivity::class.java)
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            startActivity(intent)
+            activity!!.finish()
+
+
+            fmManager.beginTransaction().remove(this@ResultPopFragment).commit()
+            fmManager.popBackStack()
         }
     }
 
