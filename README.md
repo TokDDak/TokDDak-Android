@@ -1,1 +1,17 @@
 # TokDDak-Android
+
+## 프로젝트 사용 라이브러리
+* androidx: recyclerview, viewpager 등 이용
+* glide: 이미지 로딩
+* CircleImageView: 동그란 이미지 커스텀 뷰
+
+## 프로그램 구조(패키지 구조)
+* data: ui 출력 및 통신 시 사용할 데이터 클래스 코드
+* feature: 프로그램 기능별 코드 정리
+  * 각 기능에서 사용한 activity, fragment, adapter 코드 등
+
+## 핵심 기능 구현 방법
+### 경비-일정 Drag and Drop
+* 경비 일정 페이지 하나에 있는 리사이클러뷰는 Modla Bottom Sheet(Fragment)내 Button 리사이클러뷰를 포함해서 총 3개.
+* 리사이클러뷰(Fragment)에 있는 버튼 아이템을 클릭하여 경비 Activity에 있는 RecyclerView 내 RecyclerView에 넣는다.
+라이브러리 : 리사이클러뷰 + 그 외 뷰홀더, 어댑터 / 하단 뷰(Modal Bottom Sheet - Fragment)를 위한 라이브러리 / 카드뷰 등
