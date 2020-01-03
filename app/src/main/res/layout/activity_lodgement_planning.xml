@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".feature.planning.lodgement.LodgementPlanningActivity">
+
+    <ImageView
+        android:id="@+id/img_toBack"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/navi_btn_back_b"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_lodgement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="36dp"
+        android:text="숙박"
+        android:textColor="#151617"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_toBack" />
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="0"
+        android:textColor="@color/colorPrimary"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_lodgement"
+        app:layout_constraintStart_toEndOf="@+id/tv_lodgement"
+        app:layout_constraintTop_toTopOf="@+id/tv_lodgement" />
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="14dp"
+        android:text="0"
+        android:textColor="#151617"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/icn_w"
+        app:layout_constraintTop_toBottomOf="@+id/tv_lodgement" />
+
+    <ImageView
+        android:id="@+id/icn_w"
+        android:layout_width="21dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_money_korea_black_21x18"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_price"
+        app:layout_constraintStart_toStartOf="@id/tv_lodgement"
+        app:layout_constraintTop_toTopOf="@+id/tv_price" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icn_w">
+
+        <ImageView
+            android:id="@+id/img_highest"
+            android:layout_width="152dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="4dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/make_btn_stay_top"
+            android:tag="최고급호텔"
+            app:layout_constraintEnd_toStartOf="@+id/img_high"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_high"
+            android:layout_width="152dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/make_btn_stay_high"
+            android:tag="고급호텔"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_highest"
+            app:layout_constraintTop_toTopOf="@+id/img_highest" />
+
+        <ImageView
+            android:id="@+id/img_general"
+            android:layout_width="152dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/make_btn_stay_general"
+            android:tag="일반호텔"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_highest" />
+
+        <ImageView
+            android:id="@+id/img_cheap"
+            android:layout_width="152dp"
+            android:layout_height="0dp"
+            android:adjustViewBounds="true"
+            android:src="@drawable/make_btn_stay_cheap"
+            android:tag="아파트"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/img_general" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/btn_done"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="선택 완료"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_done" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

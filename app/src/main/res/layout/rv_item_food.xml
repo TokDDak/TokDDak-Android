@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:background="#ffffff">
+
+    <ImageView
+        android:id="@+id/img_food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/bg_popular"
+        android:src="@drawable/img_food_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_foodType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="6dp"
+        android:text="고급음식점"
+        android:textColor="#151617"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/img_food"
+        app:layout_constraintTop_toTopOf="@+id/img_food" />
+
+    <TextView
+        android:id="@+id/tv_foodPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="21,000원"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_foodType"
+        app:layout_constraintTop_toBottomOf="@+id/tv_foodType" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ctn_setter"
+        android:layout_width="99dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="13dp"
+        android:background="@drawable/bg_count_setter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_foodPrice">
+
+        <Button
+            android:id="@+id/btn_minus"
+            android:layout_width="31dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_button_minus"
+            android:text="-"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="#151617"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_plus"
+            android:layout_width="31dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_button_plus"
+            android:text="+"
+            android:textColor="#ffffff"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/img_bar"
+        android:layout_width="182dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#80d5d5d5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/img_food"
+        app:layout_constraintTop_toBottomOf="@+id/ctn_setter" />
+
+    <TextView
+        android:id="@+id/tv_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="9dp"
+        android:text="합계"
+        android:textColor="#151617"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/img_food"
+        app:layout_constraintTop_toBottomOf="@+id/img_bar" />
+
+    <TextView
+        android:id="@+id/tv_foodCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="3dp"
+        android:text="42,000"
+        android:textColor="#151617"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_won"
+        app:layout_constraintTop_toBottomOf="@+id/img_bar" />
+
+    <TextView
+        android:id="@+id/tv_won"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="원"
+        android:textColor="#151617"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_foodCost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_foodCost" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

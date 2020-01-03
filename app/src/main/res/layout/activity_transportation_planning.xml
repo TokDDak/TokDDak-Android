@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:theme="@style/EditTheme"
+    tools:context=".feature.planning.transportation.TransportationPlanningActivity">
+
+    <ImageView
+        android:id="@+id/img_toBack"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/navi_btn_back_b"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_transportation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="36dp"
+        android:text="교통"
+        android:textColor="#151617"
+        android:textSize="28sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img_toBack" />
+
+    <TextView
+        android:id="@+id/tv_totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="14dp"
+        android:text="0"
+        android:textColor="#151617"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/icn_w"
+        app:layout_constraintTop_toBottomOf="@id/tv_transportation" />
+
+    <ImageView
+        android:id="@+id/icn_w"
+        android:layout_width="21dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="4dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_money_korea_black_21x18"
+        app:layout_constraintBottom_toBottomOf="@id/tv_totalPrice"
+        app:layout_constraintStart_toStartOf="@+id/tv_transportation"
+        app:layout_constraintTop_toTopOf="@id/tv_totalPrice" />
+
+    <TextView
+        android:id="@+id/tv_explanationTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="32dp"
+        android:text="물가 비교 정보"
+        android:textColor="#151617"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/icn_w" />
+
+    <TextView
+        android:id="@+id/tv_explanation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/explanation"
+        android:textColor="#666666"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_explanationTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tv_explanationTitle" />
+
+    <ImageView
+        android:id="@+id/img_transInfo"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="26dp"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_traffic_paris"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_explanation" />
+
+    <TextView
+        android:id="@+id/tv_priceEdt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="금액"
+        android:textColor="#151617"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/tv_explanationTitle"
+        app:layout_constraintTop_toBottomOf="@+id/img_transInfo" />
+
+    <EditText
+        android:id="@+id/edt_transCost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="28dp"
+        android:layout_marginTop="24dp"
+        android:hint="금액을 입력하세요."
+        android:inputType="number"
+        android:singleLine="true"
+        android:textColor="#151617"
+        android:textColorHint="#d5d5d5"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_priceEdt" />
+
+    <TextView
+        android:id="@+id/tv_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:text="원"
+        android:textColor="#151617"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/edt_transCost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edt_transCost" />
+
+    <ImageView
+        android:id="@+id/btn_done"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/selector_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="완료"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_done" />
+
+    <ImageView
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="3dp"
+        android:src="@drawable/btn_close"
+        app:layout_constraintBottom_toBottomOf="@+id/edt_transCost"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edt_transCost" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,15 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.sopt.tokddak">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/floating_btn_airplane"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/floating_btn_airplane"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".feature.expense.ExpenseActivity"/>
+        <activity android:name=".feature.history.HistoryActivity"/>
+        <activity android:name=".feature.day.DayActivity"/>
+        <activity android:name=".feature.magazine.MagazineBangkokActivity"></activity>
+        <activity android:name=".feature.magazine.MagazineHongkongActivity" />
+        <activity android:name=".feature.magazine.MagazineLondonActivity" />
+        <activity android:name=".feature.magazine.MagazineParisActivity" />
+        <activity android:name=".feature.planning.DatePickActivity" />
+        <activity android:name=".feature.planning.result.PlanningResultActivity" />
+        <activity
+            android:name=".feature.planning.WebViewActivity"
+            android:launchMode="singleTop" />
+        <activity android:name=".feature.planning.snack.SnackPlanningActivity" />
+        <activity android:name=".feature.planning.food.FoodPlanningActivity" />
+        <activity
+            android:name=".feature.planning.transportation.TransportationPlanningActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".feature.planning.shopping.ShoppingPlanningActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".feature.planning.activity.ActivitesPlanningActivity" />
+        <activity android:name=".feature.planning.lodgement.LodgementPlanningActivity" />
+        <activity android:name=".feature.planning.select_category.SelectCategoryActivity" />
+        <activity
+            android:name=".feature.planning.TitleActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity android:name=".feature.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
