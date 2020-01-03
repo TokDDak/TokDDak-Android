@@ -3,6 +3,7 @@ package com.sopt.tokddak.feature.planning.transportation
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.view.isGone
 import androidx.core.widget.addTextChangedListener
 import com.sopt.tokddak.R
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_transportation_planning.*
 class TransportationPlanningActivity : AppCompatActivity() {
 
     var selectedCategoryList: ArrayList<String> = ArrayList()
+    var transCost = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +29,14 @@ class TransportationPlanningActivity : AppCompatActivity() {
         selectedCategoryList = intent.getStringArrayListExtra("selected category list")
 
         init()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        TripInfo.tripTotalCost -= transCost
+
+        Log.d("총 금액", TripInfo.tripTotalCost.toString())
+
     }
 
     fun init() {
@@ -43,7 +53,7 @@ class TransportationPlanningActivity : AppCompatActivity() {
         )
 
         btn_done.setOnClickListener {
-            val transCost = edt_transCost.toString().toInt()
+            transCost = edt_transCost.text.toString().toInt()
             TripInfo.shoppingInfo = transCost
             TripInfo.tripTotalCost += transCost
 
@@ -72,7 +82,9 @@ class TransportationPlanningActivity : AppCompatActivity() {
     }
 
     private fun String.goCategoryIntent() {
-        selectedCategoryList.removeAt(0)
+        var passSelectCategoryList = arrayListOf<String>()
+        passSelectCategoryList.addAll(selectedCategoryList)
+        passSelectCategoryList.removeAt(0)
         val categoryIntent = when (this) {
             "숙박" -> Intent(this@TransportationPlanningActivity, LodgementPlanningActivity::class.java)
             "식사" -> Intent(this@TransportationPlanningActivity, FoodPlanningActivity::class.java)
@@ -82,7 +94,7 @@ class TransportationPlanningActivity : AppCompatActivity() {
             "액티비티" -> Intent(this@TransportationPlanningActivity, ActivitesPlanningActivity::class.java)
             else -> return
         }.apply {
-            putExtra("selected category list", selectedCategoryList)
+            putExtra("selected category list", passSelectCategoryList)
         }
         startActivity(categoryIntent)
     }

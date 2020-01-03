@@ -3,6 +3,7 @@ package com.sopt.tokddak.feature.planning.shopping
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.view.isGone
 import androidx.core.widget.addTextChangedListener
 import com.sopt.tokddak.R
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_shopping_planning.*
 class ShoppingPlanningActivity : AppCompatActivity() {
 
     var selectedCategoryList: ArrayList<String> = ArrayList()
+    var shoppingCost = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +29,14 @@ class ShoppingPlanningActivity : AppCompatActivity() {
         selectedCategoryList = intent.getStringArrayListExtra("selected category list")
 
         init()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        TripInfo.tripTotalCost -= shoppingCost
+
+        Log.d("총 금액", TripInfo.tripTotalCost.toString())
+
     }
 
     fun init() {
@@ -43,9 +53,14 @@ class ShoppingPlanningActivity : AppCompatActivity() {
         )
 
         btn_done.setOnClickListener {
-            val shoppingCost = edt_shoppingCost.toString().toInt()
+            shoppingCost = edt_shoppingCost.text.toString().toInt()
+
+            Log.d("더하기 전", TripInfo.tripTotalCost.toString())
             TripInfo.shoppingInfo = shoppingCost
             TripInfo.tripTotalCost += shoppingCost
+
+            Log.d("토탈 코스트", TripInfo.tripTotalCost.toString())
+            Log.d("쇼핑 코스트", shoppingCost.toString())
 
             if(selectedCategoryList.isNullOrEmpty()){
                 // TODO: 예산 산정 완료 뷰, activity stack clear
@@ -73,7 +88,9 @@ class ShoppingPlanningActivity : AppCompatActivity() {
     }
 
     private fun String.goCategoryIntent() {
-        selectedCategoryList.removeAt(0)
+        var passSelectCategoryList = arrayListOf<String>()
+        passSelectCategoryList.addAll(selectedCategoryList)
+        passSelectCategoryList.removeAt(0)
         val categoryIntent = when (this) {
             "숙박" -> Intent(this@ShoppingPlanningActivity, LodgementPlanningActivity::class.java)
             "식사" -> Intent(this@ShoppingPlanningActivity, FoodPlanningActivity::class.java)
@@ -83,7 +100,7 @@ class ShoppingPlanningActivity : AppCompatActivity() {
             "액티비티" -> Intent(this@ShoppingPlanningActivity, ActivitesPlanningActivity::class.java)
             else -> return
         }.apply {
-            putExtra("selected category list", selectedCategoryList)
+            putExtra("selected category list", passSelectCategoryList)
         }
         startActivity(categoryIntent)
     }

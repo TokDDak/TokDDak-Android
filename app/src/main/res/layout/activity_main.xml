@@ -21,16 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:id="@+id/img_logo"
-                android:layout_width="42dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="20dp"
-                android:background="#e3e3e3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tab_main"
                 android:layout_width="wrap_content"
@@ -38,7 +28,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="parent"
                 app:layout_constraintStart_toEndOf="parent"
-                app:tabTextColor="#ffffff" />
+                app:tabTextColor="#ffffff"
+                app:tabTextAppearance="@style/TabTheme"/>
 
             <ImageView
                 android:id="@+id/img_menu"

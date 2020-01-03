@@ -146,6 +146,7 @@
         android:src="@drawable/make_bg_img_airplane"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:alpha="0.4"
         app:layout_constraintTop_toBottomOf="@+id/edt_tripTitle" />
 
     <ImageView

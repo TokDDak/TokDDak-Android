@@ -32,6 +32,14 @@ object TripInfo {
         tripTotalCost = 0
     }
 
+    fun foodInfoClear(){
+        foodInfo = listOf()
+    }
+
+    fun snackInfoClear(){
+        snackInfo = listOf()
+    }
+
     //TODO: 예산 계산 함수
 }
 
@@ -64,3 +72,14 @@ data class Activity(
     var url: String?,
     var detailInfo: String
 )
+
+/*data class ActivityData(
+    val id: Int,
+    val name: String,
+    val cost: Int,
+    val content: String,
+    val url_mrt: String,
+    val url_kl: String,
+    val img: String,
+    val CityId: Int
+)*/

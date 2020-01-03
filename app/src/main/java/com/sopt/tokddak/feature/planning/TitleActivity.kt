@@ -1,15 +1,17 @@
 package com.sopt.tokddak.feature.planning
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.widget.addTextChangedListener
 import com.sopt.tokddak.R
 import com.sopt.tokddak.feature.planning.select_category.SelectCategoryActivity
 import kotlinx.android.synthetic.main.activity_title.*
+import java.util.*
 
 class TitleActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,8 @@ class TitleActivity : AppCompatActivity() {
         }
 
         ctn_dateSetter.setOnClickListener {
-            // date picker activity
+            val intent = Intent(this, DatePickActivity::class.java)
+            startActivityForResult(intent, 1818)
         }
 
         btn_done.setOnClickListener {
@@ -55,5 +58,16 @@ class TitleActivity : AppCompatActivity() {
 
     private fun setButtonState(){
         btn_done.isEnabled = edt_tripTitle.text.toString() != ""
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == 1818 && resultCode == Activity.RESULT_OK){
+            tv_startDate.text = data!!.getStringExtra("startDate")
+            tv_endDate.text = data!!.getStringExtra("endDate")
+            tv_startDate.setTextColor(Color.parseColor("#151617"))
+            tv_endDate.setTextColor(Color.parseColor("#151617"))
+        }
     }
 }

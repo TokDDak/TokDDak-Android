@@ -8,6 +8,10 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.content.res.ResourcesCompat
 import com.sopt.tokddak.R
+import com.sopt.tokddak.api.GetLodgeData
+import com.sopt.tokddak.api.LodgeData
+import com.sopt.tokddak.api.PlanningService
+import com.sopt.tokddak.api.PlanningServiceImpl
 import com.sopt.tokddak.common.toDecimalFormat
 import com.sopt.tokddak.feature.planning.TripInfo
 import com.sopt.tokddak.feature.planning.activity.ActivitesPlanningActivity
@@ -16,12 +20,17 @@ import com.sopt.tokddak.feature.planning.shopping.ShoppingPlanningActivity
 import com.sopt.tokddak.feature.planning.snack.SnackPlanningActivity
 import com.sopt.tokddak.feature.planning.transportation.TransportationPlanningActivity
 import kotlinx.android.synthetic.main.activity_lodgement_planning.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import kotlin.collections.ArrayList
 
 class LodgementPlanningActivity : AppCompatActivity() {
     var selectedCategoryList: ArrayList<String> = ArrayList()
     private lateinit var btns: List<ImageView>
     private lateinit var btnToggleMap: Map<View, Pair<Int, Int>>
+
+    private var lodgeDataArray = arrayListOf<LodgeData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,16 +52,29 @@ class LodgementPlanningActivity : AppCompatActivity() {
         init()
     }
 
+    override fun onResume() {
+        super.onResume()
+        TripInfo.tripTotalCost -= TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum()
+        Log.d("총 금액", TripInfo.tripTotalCost.toString())
+    }
+
     private fun init() {
 
         tv_price.text = TripInfo.tripTotalCost.toDecimalFormat()
 
-        btns.forEach { view ->
-            view.setOnClickListener {
-                val type = view.tag.toString()
-                if (!view.isSelected) {
-                    //TODO: avgPrice 받아오기
-                    val fm = LodgementPopFragment(type, 200000, "url") {
+        getLodgementData()
+
+        btns.forEachIndexed { index, imageView ->
+            imageView.setOnClickListener {
+                val type = imageView.tag.toString()
+                if (!imageView.isSelected) {
+                    Log.d("테스트 나중에", lodgeDataArray.toString())
+                    val fm = LodgementPopFragment(
+                        lodgeDataArray[index].type,
+                        lodgeDataArray[index].avgPrice,
+                        lodgeDataArray[index].url,
+                        lodgeDataArray[index].info
+                    ) {
                         updateUi()
                     }
                     fm.show(supportFragmentManager, null)
@@ -71,7 +93,7 @@ class LodgementPlanningActivity : AppCompatActivity() {
 
         btn_done.setOnClickListener {
             TripInfo.tripTotalCost += TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum()
-            if(selectedCategoryList.isNullOrEmpty()){
+            if (selectedCategoryList.isNullOrEmpty()) {
                 // TODO: 예산 산정 완료 뷰, activity stack clear
             } else
                 selectedCategoryList[0].goCategoryIntent()
@@ -100,18 +122,60 @@ class LodgementPlanningActivity : AppCompatActivity() {
     }
 
     private fun String.goCategoryIntent() {
-        selectedCategoryList.removeAt(0)
+        var passSelectCategoryList = arrayListOf<String>()
+        passSelectCategoryList.addAll(selectedCategoryList)
+        passSelectCategoryList.removeAt(0)
         val categoryIntent = when (this) {
             "숙박" -> Intent(this@LodgementPlanningActivity, LodgementPlanningActivity::class.java)
             "식사" -> Intent(this@LodgementPlanningActivity, FoodPlanningActivity::class.java)
             "주류 및 간식" -> Intent(this@LodgementPlanningActivity, SnackPlanningActivity::class.java)
-            "교통" -> Intent(this@LodgementPlanningActivity, TransportationPlanningActivity::class.java)
+            "교통" -> Intent(
+                this@LodgementPlanningActivity,
+                TransportationPlanningActivity::class.java
+            )
             "쇼핑" -> Intent(this@LodgementPlanningActivity, ShoppingPlanningActivity::class.java)
             "액티비티" -> Intent(this@LodgementPlanningActivity, ActivitesPlanningActivity::class.java)
             else -> return
         }.apply {
-            putExtra("selected category list", selectedCategoryList)
+            putExtra("selected category list", passSelectCategoryList)
         }
         startActivity(categoryIntent)
+    }
+
+    fun getLodgementData() {
+        val call: Call<GetLodgeData> =
+            PlanningServiceImpl.planningService.getLodgement(
+                "application/json",
+                1
+            )
+
+        call.enqueue(
+            object : Callback<GetLodgeData> {
+                override fun onFailure(call: Call<GetLodgeData>, t: Throwable) {
+                    Log.e(this::class.java.name, "network error : $t")
+                }
+
+                override fun onResponse(
+                    call: Call<GetLodgeData>,
+                    response: Response<GetLodgeData>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.status == 200) {
+                            val temp = response.body()!!.lodgeData.result
+                            Log.d("테스트", response.body()!!.toString())
+                            Log.d("테스트 temp", temp.toString())
+                            if (temp.isNotEmpty()) {
+                                lodgeDataArray.addAll(temp)
+                            }
+                            Log.d("테스트 list", lodgeDataArray.toString())
+                        } else {
+                            Log.d("테스트", "실패")
+                        }
+                    } else {
+                        Log.d("테스트", "실패")
+                    }
+                }
+            }
+        )
     }
 }

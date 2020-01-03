@@ -13,5 +13,9 @@
     <style name="EditTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
+    
+    <style name="TabTheme" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textSize">21sp</item>
+    </style>
 
 </resources>

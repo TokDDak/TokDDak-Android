@@ -14,6 +14,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 
 import com.sopt.tokddak.R
+import com.sopt.tokddak.api.LodgeSample
 import com.sopt.tokddak.common.toDecimalFormat
 import com.sopt.tokddak.feature.planning.Lodgement
 import com.sopt.tokddak.feature.planning.TripInfo
@@ -27,6 +28,7 @@ class LodgementPopFragment(
     var type: String,
     var avgPrice: Int,
     var url: String,
+    var samples: ArrayList<LodgeSample>,
     val dismissListener: () -> Unit = {}
 ) : DialogFragment(),
     View.OnClickListener {
@@ -54,6 +56,7 @@ class LodgementPopFragment(
     override fun onStart() {
         super.onStart()
         init()
+        setSample()
     }
 
     override fun onResume() {
@@ -126,9 +129,20 @@ class LodgementPopFragment(
 
             R.id.img_moreHotel -> {
                 val intent = Intent(activity, WebViewActivity::class.java)
-                intent.putExtra("url", "http://web-inf.tistory.com")
+                intent.putExtra("url", url)
                 startActivity(intent)
             }
         }
+    }
+
+    fun setSample(){
+        tv_firstHotel.text = samples[0].name
+        tv_firstPrice.text = samples[0].cost.toString()
+
+        tv_secondHotel.text = samples[1].name
+        tv_secondPrice.text = samples[1].cost.toString()
+
+        tv_thirdHotel.text = samples[2].name
+        tv_thirdPrice.text = samples[2].cost.toString()
     }
 }

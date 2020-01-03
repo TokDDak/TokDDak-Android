@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_select_category.tv_count
 class SelectCategoryActivity : AppCompatActivity() {
 
     private lateinit var categoryAdapter: CategoryRvAdapter
-    var selectedCategoryList = ArrayList<String>()
+    var usingSelectedCategoryList = ArrayList<String>()
 
     private val callbackListener = (object :
         ClickCallbackListener {
@@ -57,22 +57,24 @@ class SelectCategoryActivity : AppCompatActivity() {
         btn_done.setOnClickListener {
             getSelectedItem()
 
-            selectedCategoryList[0].goCategoryIntent()
+            usingSelectedCategoryList[0].goCategoryIntent()
         }
     }
 
     private fun getSelectedItem() {
-        selectedCategoryList.clear()
+        usingSelectedCategoryList.clear()
 
         for (idx in 0..5) {
             if (categoryAdapter.flagList[idx]) {
-                selectedCategoryList.add(categoryAdapter.categoryList[idx])
+                usingSelectedCategoryList.add(categoryAdapter.categoryList[idx])
             }
         }
     }
 
     private fun String.goCategoryIntent() {
-        selectedCategoryList.removeAt(0)
+        var passSelectCategoryList = arrayListOf<String>()
+        passSelectCategoryList.addAll(usingSelectedCategoryList)
+        passSelectCategoryList.removeAt(0)
         val categoryIntent = when (this) {
             "숙박" -> Intent(this@SelectCategoryActivity, LodgementPlanningActivity::class.java)
             "식사" -> Intent(this@SelectCategoryActivity, FoodPlanningActivity::class.java)
@@ -82,7 +84,7 @@ class SelectCategoryActivity : AppCompatActivity() {
             "액티비티" -> Intent(this@SelectCategoryActivity, ActivitesPlanningActivity::class.java)
             else -> return
         }.apply {
-            putExtra("selected category list", selectedCategoryList)
+            putExtra("selected category list", passSelectCategoryList)
         }
         startActivity(categoryIntent)
     }

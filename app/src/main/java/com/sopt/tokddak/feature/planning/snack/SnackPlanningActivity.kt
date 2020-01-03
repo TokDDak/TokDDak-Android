@@ -43,7 +43,19 @@ class SnackPlanningActivity : AppCompatActivity() {
         setList()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        TripInfo.tripTotalCost -= snacks.map { it.count * it.avgPrice }.sum()
+        TripInfo.snackInfoClear()
+        Log.d("총 금액", TripInfo.tripTotalCost.toString())
+    }
+
     fun init(){
+
+        tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
+
+
         rv_snacks.adapter = snackAdapter
         rv_snacks.layoutManager = LinearLayoutManager(this)
 
@@ -72,7 +84,9 @@ class SnackPlanningActivity : AppCompatActivity() {
     }
 
     private fun String.goCategoryIntent() {
-        selectedCategoryList.removeAt(0)
+        var passSelectCategoryList = arrayListOf<String>()
+        passSelectCategoryList.addAll(selectedCategoryList)
+        passSelectCategoryList.removeAt(0)
         val categoryIntent = when (this) {
             "숙박" -> Intent(this@SnackPlanningActivity, LodgementPlanningActivity::class.java)
             "식사" -> Intent(this@SnackPlanningActivity, FoodPlanningActivity::class.java)
@@ -82,7 +96,7 @@ class SnackPlanningActivity : AppCompatActivity() {
             "액티비티" -> Intent(this@SnackPlanningActivity, ActivitesPlanningActivity::class.java)
             else -> return
         }.apply {
-            putExtra("selected category list", selectedCategoryList)
+            putExtra("selected category list", passSelectCategoryList)
         }
         startActivity(categoryIntent)
     }
@@ -132,7 +146,7 @@ class SnackPlanningActivity : AppCompatActivity() {
 
                 tv_snackCount.text = snacks.map { it.count }.sum().toString()
                 tv_totalPrice.text =
-                    (TripInfo.tripTotalCost + snacks.map { it.count * it.avgPrice }.sum()).toString()
+                    (TripInfo.tripTotalCost + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
             }
 
             btnMinus.setOnClickListener {
@@ -143,7 +157,7 @@ class SnackPlanningActivity : AppCompatActivity() {
 
                     tv_snackCount.text = snacks.map { it.count }.sum().toString()
                     tv_totalPrice.text =
-                        (TripInfo.tripTotalCost + snacks.map { it.count * it.avgPrice }.sum()).toString()
+                        (TripInfo.tripTotalCost + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
                 }
             }
         }

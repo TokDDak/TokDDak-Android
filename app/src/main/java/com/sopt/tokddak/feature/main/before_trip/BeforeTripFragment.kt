@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.sopt.tokddak.R
 import com.sopt.tokddak.data.Destination
+import com.sopt.tokddak.feature.magazine.MagazineHongkongActivity
+import com.sopt.tokddak.feature.magazine.MagazineParisActivity
+import com.sopt.tokddak.feature.planning.TitleActivity
 import com.sopt.tokddak.feature.planning.select_category.SelectCategoryActivity
 import kotlinx.android.synthetic.main.fragment_before_trip.*
 
@@ -31,7 +34,11 @@ class BeforeTripFragment(var ctx: Context) : Fragment() {
         return fragment
     }*/
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val view: View = inflater.inflate(R.layout.fragment_before_trip, container, false)
         return view
     }
@@ -40,21 +47,33 @@ class BeforeTripFragment(var ctx: Context) : Fragment() {
         super.onActivityCreated(savedInstanceState)
 
         img_airplane.setOnClickListener {
-            var intent: Intent = Intent(ctx, SelectCategoryActivity::class.java)
+            var intent = Intent(ctx, TitleActivity::class.java)
             startActivity(intent)
         }
+
+        img_paris.setOnClickListener {
+            val intent = Intent(ctx, MagazineParisActivity::class.java)
+            startActivity(intent)
+        }
+
+        img_hongkong.setOnClickListener {
+            val intent = Intent(ctx, MagazineHongkongActivity::class.java)
+            startActivity(intent)
+        }
+
         initPopularDestination()
         makeDummy()
     }
 
-    private fun initPopularDestination(){
+    private fun initPopularDestination() {
         popularAdapter = PopularRvAdapter(ctx)
         rv_popularPlace.adapter = popularAdapter
-        rv_popularPlace.layoutManager = LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
+        rv_popularPlace.layoutManager =
+            LinearLayoutManager(ctx, LinearLayoutManager.HORIZONTAL, false)
 
     }
 
-    private fun makeDummy(){
+    private fun makeDummy() {
         popularAdapter.dataList.add(Destination("파리", R.drawable.btn_popular_paris))
         popularAdapter.dataList.add(Destination("세부", R.drawable.btn_popular_sebu))
         popularAdapter.dataList.add(Destination("뉴욕", R.drawable.btn_popular_newyork))

@@ -74,7 +74,7 @@
 
         <ImageView
             android:id="@+id/img_highest"
-            android:layout_width="200dp"
+            android:layout_width="152dp"
             android:layout_height="0dp"
             android:layout_marginEnd="4dp"
             android:adjustViewBounds="true"
@@ -86,7 +86,7 @@
 
         <ImageView
             android:id="@+id/img_high"
-            android:layout_width="200dp"
+            android:layout_width="152dp"
             android:layout_height="0dp"
             android:layout_marginStart="4dp"
             android:adjustViewBounds="true"
@@ -98,7 +98,7 @@
 
         <ImageView
             android:id="@+id/img_general"
-            android:layout_width="200dp"
+            android:layout_width="152dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:adjustViewBounds="true"
@@ -109,7 +109,7 @@
 
         <ImageView
             android:id="@+id/img_cheap"
-            android:layout_width="200dp"
+            android:layout_width="152dp"
             android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:src="@drawable/make_btn_stay_cheap"
