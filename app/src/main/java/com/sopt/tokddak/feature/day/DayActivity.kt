@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sopt.tokddak.R
 import com.sopt.tokddak.feature.bottom.BottomSheetDialog
 import com.sopt.tokddak.feature.main.MainActivity
+import com.sopt.tokddak.feature.main.OnTripFragment
 import kotlinx.android.synthetic.main.activity_day.*
 
 
@@ -33,14 +35,15 @@ class DayActivity : AppCompatActivity() {
 
     private var currentDay = 0
 
+    private lateinit var ctnPerfect : ConstraintLayout
+
     private lateinit var layoutManager : LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_day)
+        ctnPerfect = findViewById(R.id.ctn_perfect)
         init()
-
-
         outer()
 
         img_bar = findViewById(R.id.img_bar)
@@ -51,6 +54,12 @@ class DayActivity : AppCompatActivity() {
 
         img_back.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        ctnPerfect.setOnClickListener {
+            val intent = Intent(this, OnTripFragment::class.java)
             startActivity(intent)
             finish()
         }
@@ -66,7 +75,6 @@ class DayActivity : AppCompatActivity() {
         dayContents.add(arrayListOf("고급호텔", "일반호텔"))
         dayContents.add(arrayListOf("카페", "노잼", "간편식"))
         dayContents.add(arrayListOf("일반호텔"))
-
 
     }
 
