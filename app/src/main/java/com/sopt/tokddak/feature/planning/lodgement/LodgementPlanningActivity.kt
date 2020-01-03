@@ -16,6 +16,7 @@ import com.sopt.tokddak.common.toDecimalFormat
 import com.sopt.tokddak.feature.planning.TripInfo
 import com.sopt.tokddak.feature.planning.activity.ActivitesPlanningActivity
 import com.sopt.tokddak.feature.planning.food.FoodPlanningActivity
+import com.sopt.tokddak.feature.planning.result.PlanningResultActivity
 import com.sopt.tokddak.feature.planning.shopping.ShoppingPlanningActivity
 import com.sopt.tokddak.feature.planning.snack.SnackPlanningActivity
 import com.sopt.tokddak.feature.planning.transportation.TransportationPlanningActivity
@@ -97,7 +98,8 @@ class LodgementPlanningActivity : AppCompatActivity() {
             TripInfo.tripTotalCost += TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum()
             Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
             if (selectedCategoryList.isNullOrEmpty()) {
-                // TODO: 예산 산정 완료 뷰, activity stack clear
+                val intent = Intent(this, PlanningResultActivity::class.java)
+                startActivity(intent)
             } else
                 selectedCategoryList[0].goCategoryIntent()
         }

@@ -36,6 +36,27 @@ interface PlanningService {
         @Header("Content-Type") content_type: String,
         @Path("CityId") CityId : Int
     ): Call<GetTransData>
+
+    @POST("tripHotel/{TripId}")
+    fun requestLodge(
+        @Header("Content-Type") content_type: String,
+        @Path("TripId") TripId: Int,
+        @Body body: PostRequestLodgeData
+    ): Call<PostRequestLodgeState>
+
+    @POST("tripActivity/{TripId}")
+    fun requestActivity(
+        @Header("Content-Type") content_type: String,
+        @Path("TripId") TripId: Int,
+        @Body body: PostRequestActivityData
+    ): Call<PostREquestActivityState>
+
+    @POST("TripSnack/{TripId}")
+    fun requestSnack(
+        @Header("Content-Type") content_type: String,
+        @Path("TripId") TripId: Int,
+        @Body body: PostRequestSnackData
+    ): Call<PostRequestSnackState>
 }
 
 data class GetLodgeData(
@@ -122,4 +143,51 @@ data class GetTransData(
 
 data class TransData(
     val img: String
+)
+
+data class PostRequestLodgeData(
+    val array: List<RequestLodgeData>
+)
+
+data class RequestLodgeData(
+    val grade: String,
+    val cost: Int,
+    val count: Int
+)
+
+data class PostRequestLodgeState(
+    val status: Int,
+    val message: String,
+    val success: Boolean
+)
+
+data class RequestActivityData(
+    val name: String,
+    val cost: Int
+)
+
+data class PostREquestActivityState(
+    val status: Int,
+    val message: String,
+    val success: Boolean
+)
+
+data class PostRequestActivityData(
+    val array: List<RequestActivityData>
+)
+
+data class RequestSnackData(
+    val grade: String,
+    val cost: Int,
+    val count: Int
+)
+
+data class PostRequestSnackState(
+    val status: Int,
+    val message: String,
+    val success: Boolean
+)
+
+data class PostRequestSnackData(
+    val array: List<RequestSnackData>
 )

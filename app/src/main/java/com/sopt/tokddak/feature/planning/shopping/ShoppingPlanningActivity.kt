@@ -15,6 +15,7 @@ import com.sopt.tokddak.feature.planning.TripInfo
 import com.sopt.tokddak.feature.planning.activity.ActivitesPlanningActivity
 import com.sopt.tokddak.feature.planning.food.FoodPlanningActivity
 import com.sopt.tokddak.feature.planning.lodgement.LodgementPlanningActivity
+import com.sopt.tokddak.feature.planning.result.PlanningResultActivity
 import com.sopt.tokddak.feature.planning.snack.SnackPlanningActivity
 import com.sopt.tokddak.feature.planning.transportation.TransportationPlanningActivity
 import kotlinx.android.synthetic.main.activity_shopping_planning.*
@@ -71,7 +72,8 @@ class ShoppingPlanningActivity : AppCompatActivity() {
             Log.d("쇼핑 코스트", shoppingCost.toString())
 
             if (selectedCategoryList.isNullOrEmpty()) {
-                // TODO: 예산 산정 완료 뷰, activity stack clear
+                val intent = Intent(this, PlanningResultActivity::class.java)
+                startActivity(intent)
             } else
                 selectedCategoryList[0].goCategoryIntent()
 

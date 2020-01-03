@@ -82,7 +82,6 @@ class ActivitesPlanningActivity : AppCompatActivity() {
 
             Log.d("테스트", selectedCategoryList.toString())
             if (selectedCategoryList.isNullOrEmpty()) {
-                // TODO: 예산 산정 완료 뷰, activity stack clear
                 val intent = Intent(this, PlanningResultActivity::class.java)
                 startActivity(intent)
             } else

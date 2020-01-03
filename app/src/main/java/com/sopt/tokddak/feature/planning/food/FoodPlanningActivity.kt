@@ -21,6 +21,7 @@ import com.sopt.tokddak.feature.planning.Food
 import com.sopt.tokddak.feature.planning.TripInfo
 import com.sopt.tokddak.feature.planning.activity.ActivitesPlanningActivity
 import com.sopt.tokddak.feature.planning.lodgement.LodgementPlanningActivity
+import com.sopt.tokddak.feature.planning.result.PlanningResultActivity
 import com.sopt.tokddak.feature.planning.shopping.ShoppingPlanningActivity
 import com.sopt.tokddak.feature.planning.snack.SnackPlanningActivity
 import com.sopt.tokddak.feature.planning.transportation.TransportationPlanningActivity
@@ -82,7 +83,8 @@ class FoodPlanningActivity : AppCompatActivity() {
             TripInfo.foodInfo += foods
 
             if(selectedCategoryList.isNullOrEmpty()){
-                // TODO: 예산 산정 완료 뷰, activity stack clear
+                val intent = Intent(this, PlanningResultActivity::class.java)
+                startActivity(intent)
             } else
                 selectedCategoryList[0].goCategoryIntent()
         }
