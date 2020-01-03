@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="EditTheme" parent="Theme.AppCompat.Light.NoActionBar">

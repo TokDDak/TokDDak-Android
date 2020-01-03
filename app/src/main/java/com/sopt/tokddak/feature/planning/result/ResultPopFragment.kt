@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 
 import com.sopt.tokddak.R
 import com.sopt.tokddak.api.*
+import com.sopt.tokddak.feature.day.DayActivity
 import com.sopt.tokddak.feature.planning.TripInfo
 import com.sopt.tokddak.feature.planning.WebViewActivity
 import kotlinx.android.synthetic.main.fragment_result_pop.*
@@ -74,12 +75,9 @@ class ResultPopFragment : DialogFragment() {
         }
 
         btn_done.setOnClickListener{
-            val intent = Intent(activity, WebViewActivity::class.java)
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            val intent = Intent(activity, DayActivity::class.java)
             startActivity(intent)
             activity!!.finish()
-
 
             fmManager.beginTransaction().remove(this@ResultPopFragment).commit()
             fmManager.popBackStack()

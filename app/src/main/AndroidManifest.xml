@@ -10,12 +10,15 @@
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/floating_btn_airplane"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/floating_btn_airplane"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".feature.expense.ExpenseActivity"/>
+        <activity android:name=".feature.history.HistoryActivity"/>
+        <activity android:name=".feature.day.DayActivity"/>
         <activity android:name=".feature.magazine.MagazineBangkokActivity"></activity>
         <activity android:name=".feature.magazine.MagazineHongkongActivity" />
         <activity android:name=".feature.magazine.MagazineLondonActivity" />
