@@ -14,7 +14,6 @@ class InnerAdapter (private val context : Context, var dayContents : ArrayList<S
 
     var data = listOf<InnerItem>()
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InnerViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.rv_item_inner,parent,false)
         return InnerViewHolder(view)
@@ -26,7 +25,7 @@ class InnerAdapter (private val context : Context, var dayContents : ArrayList<S
         return holder.bind(dayContents[position])
     }
 
-    inner class InnerViewHolder (view : View) : RecyclerView.ViewHolder(view){//, BottomAdapter.BottomListener
+    inner class InnerViewHolder (view : View) : RecyclerView.ViewHolder(view), View.OnLongClickListener{//, BottomAdapter.BottomListener
     val ctn_inner : View = view.findViewById(R.id.ctn_inner)
         val txt_category : TextView = view.findViewById(R.id.txt_category)
         val img_category : ImageView = view.findViewById(R.id.img_category)
@@ -34,6 +33,14 @@ class InnerAdapter (private val context : Context, var dayContents : ArrayList<S
 
         fun bind(innerItem : String){
             txt_category.text = innerItem
+            ctn_inner.setOnLongClickListener(this)
+        }
+
+        override fun onLongClick(view : View): Boolean {
+            val position = adapterPosition
+            dayContents.removeAt(position)
+            notifyItemRemoved(position)
+            return true
         }
     }
 

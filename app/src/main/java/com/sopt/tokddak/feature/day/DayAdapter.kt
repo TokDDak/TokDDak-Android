@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sopt.tokddak.R
 import com.sopt.tokddak.feature.inner.InnerAdapter
-import com.sopt.tokddak.feature.inner.InnerData
 
 class DayAdapter(private val context : Context, var dayContents : ArrayList<ArrayList<String>>) : RecyclerView.Adapter<DayAdapter.DayViewHolder>(){
 
-    private val innerData = InnerData()
     var data = listOf<DayItem>()
     lateinit var innerAdapter : InnerAdapter
 
@@ -36,39 +34,15 @@ class DayAdapter(private val context : Context, var dayContents : ArrayList<Arra
         val txt_dayNo : TextView = view.findViewById(R.id.txt_dayNo)
         val rv_inner : RecyclerView = view.findViewById(R.id.rv_inner)
 
-//        fun bind(data : DayItem){
-//            txt_dayNo.text = data.day
-//
-//            innerAdapter = InnerAdapter(context)
-//            rv_inner.adapter = innerAdapter
-//            rv_inner.layoutManager = LinearLayoutManager(context, HORIZONTAL, false)
-//            rv_inner.setHasFixedSize(true)
-//
-//            //val holder = rv_inner.findViewHolderForAdapterPosition(position) as InnerAdapter.InnerViewHolder
-//
-//            innerAdapter.data = innerData.getInner()
-//            innerAdapter.notifyDataSetChanged()
-//        }
-
         fun bind(dayContents : ArrayList<String>){
             innerAdapter = InnerAdapter(context, dayContents)
             rv_inner.adapter = innerAdapter
             rv_inner.layoutManager = LinearLayoutManager(context)
             rv_inner.setHasFixedSize(true)
-
-            //val holder = rv_inner.findViewHolderForAdapterPosition(position) as InnerAdapter.InnerViewHolder
-//
-//            innerAdapter.data = innerData.getInner()
-//            innerAdapter.notifyDataSetChanged()
         }
     }
 
     fun updateDay(){
         innerAdapter.notifyDataChange()
     }
-
-//    fun updateDay(idx : Int, dayContents : ArrayList<String>){
-//        Log.v("YGYG", innerAdapter.dayContents.toString())
-//        innerAdapter.notifyDataSetChanged()
-//    }
 }
