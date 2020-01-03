@@ -33,12 +33,15 @@ class LodgementPlanningActivity : AppCompatActivity() {
 
     private var lodgeDataArray = arrayListOf<LodgeData>()
 
+    private var totalBudgetInLodge = 0
+    private var intentBudget = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lodgement_planning)
 
         val intent = intent
-        selectedCategoryList = intent.getStringArrayListExtra("selected category list")
+        selectedCategoryList = intent.getStringArrayListExtra("selected category list")!!
 
         btns = listOf(
             img_highest, img_high, img_general, img_cheap
@@ -55,14 +58,13 @@ class LodgementPlanningActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        TripInfo.tripTotalCost -= TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum()
-        Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
-        Log.d("총 금액", TripInfo.tripTotalCost.toString())
+        // TripInfo.tripTotalCost -= TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum()
+        intentBudget = totalBudgetInLodge
     }
 
     private fun init() {
 
-        tv_price.text = TripInfo.tripTotalCost.toDecimalFormat()
+        tv_price.text = totalBudgetInLodge.toDecimalFormat()
 
         getLodgementData()
 
@@ -95,7 +97,7 @@ class LodgementPlanningActivity : AppCompatActivity() {
         }
 
         btn_done.setOnClickListener {
-            TripInfo.tripTotalCost += TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum()
+            intentBudget += TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum()
             Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
             if (selectedCategoryList.isNullOrEmpty()) {
                 val intent = Intent(this, PlanningResultActivity::class.java)
@@ -110,7 +112,7 @@ class LodgementPlanningActivity : AppCompatActivity() {
             // tv_count.text = list.size.toString()
             Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
             tv_count.text = list.map { it.count }.sum().toString()
-            tv_price.text = (TripInfo.tripTotalCost + list.map {
+            tv_price.text = (intentBudget + list.map {
                 it.count * it.avgPrice
             }.sum()).toDecimalFormat()
 
@@ -144,6 +146,7 @@ class LodgementPlanningActivity : AppCompatActivity() {
             else -> return
         }.apply {
             putExtra("selected category list", passSelectCategoryList)
+            putExtra("budget", intentBudget)
         }
         startActivity(categoryIntent)
     }

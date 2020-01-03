@@ -28,21 +28,24 @@ class ShoppingPlanningActivity : AppCompatActivity() {
     var selectedCategoryList: ArrayList<String> = ArrayList()
     var shoppingCost = 0
 
+    var totalBudgetInShopping = 0
+    var intentBudget = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_planning)
 
         val intent = intent
-        selectedCategoryList = intent.getStringArrayListExtra("selected category list")
+        selectedCategoryList = intent.getStringArrayListExtra("selected category list")!!
+        totalBudgetInShopping = intent.getIntExtra("budget", 0)
 
         init()
     }
 
     override fun onResume() {
         super.onResume()
-        TripInfo.tripTotalCost -= shoppingCost
-
-        Log.d("총 금액", TripInfo.tripTotalCost.toString())
+        // TripInfo.tripTotalCost -= shoppingCost
+        intentBudget = totalBudgetInShopping
 
     }
 
@@ -50,7 +53,7 @@ class ShoppingPlanningActivity : AppCompatActivity() {
 
         getShoppingImage()
 
-        tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
+        tv_totalPrice.text = totalBudgetInShopping.toDecimalFormat()
 
         btn_cancel.isGone = true
         btn_done.isEnabled = false
@@ -63,13 +66,8 @@ class ShoppingPlanningActivity : AppCompatActivity() {
 
         btn_done.setOnClickListener {
             shoppingCost = edt_shoppingCost.text.toString().toInt()
-
-            Log.d("더하기 전", TripInfo.tripTotalCost.toString())
             TripInfo.shoppingInfo = shoppingCost
-            TripInfo.tripTotalCost += shoppingCost
-
-            Log.d("토탈 코스트", TripInfo.tripTotalCost.toString())
-            Log.d("쇼핑 코스트", shoppingCost.toString())
+            intentBudget += shoppingCost
 
             if (selectedCategoryList.isNullOrEmpty()) {
                 val intent = Intent(this, PlanningResultActivity::class.java)
@@ -114,6 +112,7 @@ class ShoppingPlanningActivity : AppCompatActivity() {
             else -> return
         }.apply {
             putExtra("selected category list", passSelectCategoryList)
+            putExtra("budget", intentBudget)
         }
         startActivity(categoryIntent)
     }

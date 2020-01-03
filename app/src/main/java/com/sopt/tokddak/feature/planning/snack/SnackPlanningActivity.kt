@@ -33,12 +33,16 @@ class SnackPlanningActivity : AppCompatActivity() {
 
     var selectedCategoryList: ArrayList<String> = ArrayList()
 
+    var totalBudgetInSnack = 0
+    var intentBudget = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_snack_planning)
 
         val intent = intent
-        selectedCategoryList = intent.getStringArrayListExtra("selected category list")
+        selectedCategoryList = intent.getStringArrayListExtra("selected category list")!!
+        totalBudgetInSnack = intent.getIntExtra("budget", 0)
 
         init()
         setList()
@@ -46,15 +50,15 @@ class SnackPlanningActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        intentBudget = totalBudgetInSnack
 
-        TripInfo.tripTotalCost -= snacks.map { it.count * it.avgPrice }.sum()
+        // TripInfo.tripTotalCost -= snacks.map { it.count * it.avgPrice }.sum()
         TripInfo.snackInfoClear()
-        Log.d("총 금액", TripInfo.tripTotalCost.toString())
     }
 
     fun init(){
 
-        tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
+        tv_totalPrice.text = totalBudgetInSnack.toDecimalFormat()
 
 
         rv_snacks.adapter = snackAdapter
@@ -65,7 +69,7 @@ class SnackPlanningActivity : AppCompatActivity() {
         }
 
         btn_done.setOnClickListener {
-            TripInfo.tripTotalCost += snacks.map { it.count * it.avgPrice }.sum()
+            intentBudget += snacks.map { it.count * it.avgPrice }.sum()
             TripInfo.snackInfo += snacks
             // Log.d("테스트", TripInfo.snackInfo.toString())
 
@@ -99,6 +103,7 @@ class SnackPlanningActivity : AppCompatActivity() {
             else -> return
         }.apply {
             putExtra("selected category list", passSelectCategoryList)
+            putExtra("budget", intentBudget)
         }
         startActivity(categoryIntent)
     }
@@ -148,7 +153,7 @@ class SnackPlanningActivity : AppCompatActivity() {
 
                 tv_snackCount.text = snacks.map { it.count }.sum().toString()
                 tv_totalPrice.text =
-                    (TripInfo.tripTotalCost + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
+                    (intentBudget + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
             }
 
             btnMinus.setOnClickListener {
@@ -159,7 +164,7 @@ class SnackPlanningActivity : AppCompatActivity() {
 
                     tv_snackCount.text = snacks.map { it.count }.sum().toString()
                     tv_totalPrice.text =
-                        (TripInfo.tripTotalCost + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
+                        (intentBudget + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
                 }
             }
         }

@@ -28,28 +28,31 @@ class TransportationPlanningActivity : AppCompatActivity() {
     var selectedCategoryList: ArrayList<String> = ArrayList()
     var transCost = 0
 
+    var totalBudgetInTrans = 0
+    var intentBudget = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_transportation_planning)
 
         val intent = intent
-        selectedCategoryList = intent.getStringArrayListExtra("selected category list")
+        selectedCategoryList = intent.getStringArrayListExtra("selected category list")!!
+        totalBudgetInTrans = intent.getIntExtra("budget", 0)
 
         init()
     }
 
     override fun onResume() {
         super.onResume()
-        TripInfo.tripTotalCost -= transCost
-
-        Log.d("총 금액", TripInfo.tripTotalCost.toString())
+        // TripInfo.tripTotalCost -= transCost
+        intentBudget = totalBudgetInTrans
 
     }
 
     fun init() {
         getTransImage()
 
-        tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
+        tv_totalPrice.text = totalBudgetInTrans.toDecimalFormat()
 
         btn_cancel.isGone = true
         btn_done.isEnabled = false
@@ -63,7 +66,7 @@ class TransportationPlanningActivity : AppCompatActivity() {
         btn_done.setOnClickListener {
             transCost = edt_transCost.text.toString().toInt()
             TripInfo.transInfo = transCost
-            TripInfo.tripTotalCost += transCost
+            intentBudget += transCost
 
             if (selectedCategoryList.isNullOrEmpty()) {
                 val intent = Intent(this, PlanningResultActivity::class.java)
@@ -119,6 +122,7 @@ class TransportationPlanningActivity : AppCompatActivity() {
             else -> return
         }.apply {
             putExtra("selected category list", passSelectCategoryList)
+            putExtra("budget", intentBudget)
         }
         startActivity(categoryIntent)
     }

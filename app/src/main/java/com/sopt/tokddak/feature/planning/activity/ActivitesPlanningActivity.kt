@@ -40,36 +40,30 @@ class ActivitesPlanningActivity : AppCompatActivity() {
 
     private lateinit var activityAdapter: ActivityRvAdapter
 
+    var totalBudgetInAct = 0
+    var intentBudget = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_activites_planning)
 
         val intent = intent
         selectedCategoryList = intent.getStringArrayListExtra("selected category list")!!
-
+        totalBudgetInAct = intent.getIntExtra("budget", totalBudgetInAct)
 
         getActivity()
         init()
-        // makeDummy()
     }
 
     override fun onResume() {
         super.onResume()
-        TripInfo.tripTotalCost -= TripInfo.activityInfo.map { it.cost }.sum()
-        tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
-
-        Log.d("총 금액", TripInfo.tripTotalCost.toString())
-
-        Log.d("테스트 resume", activitiesData.toString())
-        // Log.d("총 금액 액티", activities.toString())
+        // TripInfo.tripTotalCost -= TripInfo.activityInfo.map { it.cost }.sum()
+        intentBudget = totalBudgetInAct
 
     }
 
     private fun init() {
-
-        // Log.d("테스트 init", activitiesData.toString())
-
-        tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
+        tv_totalPrice.text = totalBudgetInAct.toDecimalFormat()
 
         img_toBack.setOnClickListener {
             finish()
@@ -77,10 +71,8 @@ class ActivitesPlanningActivity : AppCompatActivity() {
 
         btn_done.setOnClickListener {
             TripInfo.activityInfo += activitiesData.filter { it.flag }
-            TripInfo.tripTotalCost += activitiesData.filter { it.flag }.map { it.cost }.sum()
-            // Log.d("테스트", TripInfo.activityInfo.toString())
+            intentBudget += activitiesData.filter { it.flag }.map { it.cost }.sum()
 
-            Log.d("테스트", selectedCategoryList.toString())
             if (selectedCategoryList.isNullOrEmpty()) {
                 val intent = Intent(this, PlanningResultActivity::class.java)
                 startActivity(intent)
@@ -88,13 +80,6 @@ class ActivitesPlanningActivity : AppCompatActivity() {
                 selectedCategoryList[0].goCategoryIntent()
         }
     }
-
-    /*private fun makeDummy() {
-        activities.add(Activity("파리", 1000, null, R.drawable.img_test, false, null, "ㅎㅎㅎ"))
-        activities.add(Activity("세부", 2000, null, R.drawable.img_test, false, null, "ㅋㅋㅋ"))
-        activities.add(Activity("뉴욕", 3000, null, R.drawable.img_test, false, null, "ㅗㅗㅗ"))
-        activityAdapter.notifyDataSetChanged()
-    }*/
 
     private fun String.goCategoryIntent() {
         var passSelectCategoryList = arrayListOf<String>()
@@ -113,11 +98,12 @@ class ActivitesPlanningActivity : AppCompatActivity() {
             else -> return
         }.apply {
             putExtra("selected category list", passSelectCategoryList)
+            putExtra("budget", intentBudget)
         }
         startActivity(categoryIntent)
     }
 
-    fun getActivity(){
+    private fun getActivity(){
         val call: Call<GetActivityData> =
             PlanningServiceImpl.planningService.getActivity(
                 "application/json",
@@ -137,22 +123,18 @@ class ActivitesPlanningActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful){
                         if(response.body()!!.status == 200){
-                            Log.d("테스트", response.body()!!.data.toString())
                             val temp = response.body()!!.data
                             if(temp.isNotEmpty()){
                                 activitiesData.addAll(temp)
-                                Log.d("테스트", activitiesData.toString())
+
                                 activityAdapter = ActivityRvAdapter()
                                 rv_activities.adapter = activityAdapter
                                 rv_activities.layoutManager = LinearLayoutManager(this@ActivitesPlanningActivity)
                                 activityAdapter.notifyDataSetChanged()
                             }
                         } else{
-                            Log.d("테스트", response.body()!!.status.toString())
                         }
                     } else{
-                        Log.d("테스트", response.isSuccessful.toString())
-                        Log.d("테스트", response.toString())
                     }
                 }
             }
@@ -200,7 +182,7 @@ class ActivitesPlanningActivity : AppCompatActivity() {
                 }
                 tv_totalCount.text = activitiesData.filter { it.flag }.size.toString()
                 tv_totalPrice.text =
-                    (TripInfo.tripTotalCost + activitiesData.filter { it.flag }.map { it.cost }.sum()).toString()
+                    (intentBudget + activitiesData.filter { it.flag }.map { it.cost }.sum()).toString()
             }
 
             ctnActivity.setOnClickListener {
