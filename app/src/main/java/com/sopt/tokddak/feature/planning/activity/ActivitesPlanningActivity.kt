@@ -75,6 +75,7 @@ class ActivitesPlanningActivity : AppCompatActivity() {
 
             if (selectedCategoryList.isNullOrEmpty()) {
                 val intent = Intent(this, PlanningResultActivity::class.java)
+                intent.putExtra("budget", intentBudget)
                 startActivity(intent)
             } else
                 selectedCategoryList[0].goCategoryIntent()

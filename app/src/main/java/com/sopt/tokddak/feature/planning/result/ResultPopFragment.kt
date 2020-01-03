@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide
 
 import com.sopt.tokddak.R
 import com.sopt.tokddak.api.*
+import com.sopt.tokddak.common.toDateFormat
 import com.sopt.tokddak.feature.day.DayActivity
 import com.sopt.tokddak.feature.planning.TripInfo
 import com.sopt.tokddak.feature.planning.WebViewActivity
@@ -68,13 +69,13 @@ class ResultPopFragment : DialogFragment() {
         dialog?.window?.setLayout(dialogWidth, dialogHeight)
     }
 
-    fun init(){
+    fun init() {
         btn_close.setOnClickListener {
             fmManager.beginTransaction().remove(this@ResultPopFragment).commit()
             fmManager.popBackStack()
         }
 
-        btn_done.setOnClickListener{
+        btn_done.setOnClickListener {
             val intent = Intent(activity, DayActivity::class.java)
             startActivity(intent)
             activity!!.finish()
@@ -86,11 +87,12 @@ class ResultPopFragment : DialogFragment() {
             postLodgeData()
             postActData()
             postSnackData()
+            postBudgetData()
         }
     }
 
 
-    private fun makeServerData(){
+    private fun makeServerData() {
         // 숙박 정보 서버 데이터화
         TripInfo.lodgementInfo.forEach {
             lodgeData.add(RequestLodgeData(it.type, it.avgPrice, it.count))
@@ -105,7 +107,7 @@ class ResultPopFragment : DialogFragment() {
         }
     }
 
-    private fun postLodgeData(){
+    private fun postLodgeData() {
         val call: Call<PostRequestLodgeState> =
             PlanningServiceImpl.planningService.requestLodge(
                 "application/json",
@@ -134,7 +136,7 @@ class ResultPopFragment : DialogFragment() {
         )
     }
 
-    private fun postActData(){
+    private fun postActData() {
         val call: Call<PostREquestActivityState> =
             PlanningServiceImpl.planningService.requestActivity(
                 "application/json",
@@ -163,7 +165,7 @@ class ResultPopFragment : DialogFragment() {
         )
     }
 
-    private fun postSnackData(){
+    private fun postSnackData() {
         val call: Call<PostRequestSnackState> =
             PlanningServiceImpl.planningService.requestSnack(
                 "application/json",
@@ -181,6 +183,46 @@ class ResultPopFragment : DialogFragment() {
                 override fun onResponse(
                     call: Call<PostRequestSnackState>,
                     response: Response<PostRequestSnackState>
+                ) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.status == 200) {
+
+                        }
+                    }
+                }
+            }
+        )
+    }
+
+    private fun postBudgetData() {
+        val call: Call<PostRequestBudgetState> =
+            PlanningServiceImpl.planningService.requestBudget(
+                "application/json",
+                1,
+                PostRequestBudgetData(
+                    TripInfo.title,
+                    TripInfo.startDate.toDateFormat(),
+                    TripInfo.endDate.toDateFormat(),
+                    TripInfo.activityInfo.map { it.cost }.sum(),
+                    TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum(),
+                    TripInfo.foodInfo.map { it.count * it.avgPrice }.sum(),
+                    TripInfo.shoppingInfo,
+                    TripInfo.snackInfo.map { it.count * it.avgPrice }.sum(),
+                    TripInfo.transInfo,
+                    1
+                )
+            )
+
+        call.enqueue(
+            object : Callback<PostRequestBudgetState> {
+
+                override fun onFailure(call: Call<PostRequestBudgetState>, t: Throwable) {
+                    Log.e(this::class.java.name, "network error : $t")
+                }
+
+                override fun onResponse(
+                    call: Call<PostRequestBudgetState>,
+                    response: Response<PostRequestBudgetState>
                 ) {
                     if (response.isSuccessful) {
                         if (response.body()!!.status == 200) {

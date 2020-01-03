@@ -101,6 +101,7 @@ class LodgementPlanningActivity : AppCompatActivity() {
             Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
             if (selectedCategoryList.isNullOrEmpty()) {
                 val intent = Intent(this, PlanningResultActivity::class.java)
+                intent.putExtra("budget", intentBudget)
                 startActivity(intent)
             } else
                 selectedCategoryList[0].goCategoryIntent()

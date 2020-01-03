@@ -96,8 +96,6 @@ class LodgementPopFragment(
                 TripInfo.lodgementInfo += Lodgement(
                     type, count, avgPrice
                 )
-                Log.d("숙박", TripInfo.lodgementInfo.map { it.count * it.avgPrice }.sum().toString())
-
 
                 // fragment 종료 --> 안될 경우 activity 함수 호출하는 방법으로 변경
                 fmManager.beginTransaction().remove(this@LodgementPopFragment).commit()
@@ -138,14 +136,14 @@ class LodgementPopFragment(
         }
     }
 
-    fun setSample(){
+    fun setSample() {
         tv_firstHotel.text = samples[0].name
-        tv_firstPrice.text = samples[0].cost.toString()
+        tv_firstPrice.text = samples[0].cost.toDecimalFormat() + "원"
 
         tv_secondHotel.text = samples[1].name
-        tv_secondPrice.text = samples[1].cost.toString()
+        tv_secondPrice.text = samples[1].cost.toDecimalFormat() + "원"
 
         tv_thirdHotel.text = samples[2].name
-        tv_thirdPrice.text = samples[2].cost.toString()
+        tv_thirdPrice.text = samples[2].cost.toDecimalFormat() + "원"
     }
 }

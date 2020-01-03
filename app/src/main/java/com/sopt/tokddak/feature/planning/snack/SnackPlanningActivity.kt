@@ -25,6 +25,7 @@ import com.sopt.tokddak.feature.planning.shopping.ShoppingPlanningActivity
 import com.sopt.tokddak.feature.planning.transportation.TransportationPlanningActivity
 import kotlinx.android.synthetic.main.activity_snack_planning.*
 import kotlin.math.log
+import kotlin.random.Random
 
 class SnackPlanningActivity : AppCompatActivity() {
 
@@ -75,6 +76,7 @@ class SnackPlanningActivity : AppCompatActivity() {
 
             if(selectedCategoryList.isNullOrEmpty()){
                 val intent = Intent(this, PlanningResultActivity::class.java)
+                intent.putExtra("budget", intentBudget)
                 startActivity(intent)
             } else
                 selectedCategoryList[0].goCategoryIntent()
@@ -83,9 +85,9 @@ class SnackPlanningActivity : AppCompatActivity() {
 
     fun setList() {
         // 서버 평균 가격 통신
-        snacks.add(Snack("카페", 0, 10000, R.drawable.img_snacks_cafe))
-        snacks.add(Snack("디저트", 0, 21000, R.drawable.img_snacks_bakery))
-        snacks.add(Snack("펍 & 바", 0, 30000, R.drawable.img_snacks_pubnbar))
+        snacks.add(Snack("카페", 0, rand(4000, 12000), R.drawable.img_snacks_cafe))
+        snacks.add(Snack("디저트", 0, rand(4000, 12000), R.drawable.img_snacks_bakery))
+        snacks.add(Snack("펍 & 바", 0, rand(9000, 30000), R.drawable.img_snacks_pubnbar))
         snackAdapter.notifyDataSetChanged()
     }
 
@@ -106,6 +108,10 @@ class SnackPlanningActivity : AppCompatActivity() {
             putExtra("budget", intentBudget)
         }
         startActivity(categoryIntent)
+    }
+
+    fun rand(from: Int, to: Int): Int{
+        return Random.nextInt(to - from) + from
     }
 
     private inner class SnackRvAdapter :

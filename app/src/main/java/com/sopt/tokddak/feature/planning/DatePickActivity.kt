@@ -42,6 +42,10 @@ class DatePickActivity : AppCompatActivity() {
     }
 
     fun init() {
+
+        startDate = Calendar.getInstance().time
+        endDate = Calendar.getInstance().time
+
         btn_cancel.setOnClickListener {
             finish()
         }
