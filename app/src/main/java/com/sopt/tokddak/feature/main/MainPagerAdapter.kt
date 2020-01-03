@@ -25,7 +25,7 @@ class MainPagerAdapter(fm: FragmentManager, var ctx: Context) : FragmentPagerAda
     override fun getPageTitle(position: Int): CharSequence? {
         val title = when (position) {
             0 -> "여행 전"
-            1 -> "여행 후"
+            1 -> "여행 중"
             else -> error("pager adapter error")
         }
 

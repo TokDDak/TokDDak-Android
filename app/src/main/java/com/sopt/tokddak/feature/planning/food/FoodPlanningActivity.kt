@@ -40,6 +40,8 @@ class FoodPlanningActivity : AppCompatActivity() {
     private val foodAdapter: FoodRvAdapter = FoodRvAdapter()
 
     var selectedCategoryList: ArrayList<String> = ArrayList()
+    var totalBudgetInFood = 0
+    var intentBudget = 0
 
     lateinit var indexString: String
 
@@ -48,7 +50,8 @@ class FoodPlanningActivity : AppCompatActivity() {
         setContentView(R.layout.activity_food_planning)
 
         val intent = intent
-        selectedCategoryList = intent.getStringArrayListExtra("selected category list")
+        selectedCategoryList = intent.getStringArrayListExtra("selected category list")!!
+        totalBudgetInFood = intent.getIntExtra("budget", 0)
 
         init()
         getFoodData()
@@ -58,18 +61,17 @@ class FoodPlanningActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        // setList()
-
         // object 저장 초기화
-        TripInfo.tripTotalCost -= foods.map { it.count * it.avgPrice }.sum()
+        // TripInfo.tripTotalCost -= foods.map { it.count * it.avgPrice }.sum()
         TripInfo.foodInfoClear()
-        Log.d("총 금액", TripInfo.tripTotalCost.toString())
+        intentBudget = totalBudgetInFood
+
 
     }
 
     fun init() {
 
-        tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
+        tv_totalPrice.text = totalBudgetInFood.toDecimalFormat()
 
         rv_foods.adapter = foodAdapter
         rv_foods.layoutManager = LinearLayoutManager(this)
@@ -79,11 +81,12 @@ class FoodPlanningActivity : AppCompatActivity() {
         }
 
         btn_done.setOnClickListener {
-            TripInfo.tripTotalCost += foods.map { it.count * it.avgPrice }.sum()
+            intentBudget += foods.map { it.count * it.avgPrice }.sum()
             TripInfo.foodInfo += foods
 
             if(selectedCategoryList.isNullOrEmpty()){
                 val intent = Intent(this, PlanningResultActivity::class.java)
+                intent.putExtra("budget", intentBudget)
                 startActivity(intent)
             } else
                 selectedCategoryList[0].goCategoryIntent()
@@ -108,6 +111,7 @@ class FoodPlanningActivity : AppCompatActivity() {
             else -> return
         }.apply {
             putExtra("selected category list", passSelectCategoryList)
+            putExtra("budget", intentBudget)
         }
         startActivity(categoryIntent)
     }
@@ -200,7 +204,7 @@ class FoodPlanningActivity : AppCompatActivity() {
 
                 tv_foodCount.text = foods.map { it.count }.sum().toString()
                 tv_totalPrice.text =
-                    (TripInfo.tripTotalCost + foods.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
+                    (intentBudget + foods.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
             }
 
             btnMinus.setOnClickListener {
@@ -211,7 +215,7 @@ class FoodPlanningActivity : AppCompatActivity() {
 
                     tv_foodCount.text = foods.map { it.count }.sum().toString()
                     tv_totalPrice.text =
-                        (TripInfo.tripTotalCost + foods.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
+                        (intentBudget + foods.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
                 }
             }
         }

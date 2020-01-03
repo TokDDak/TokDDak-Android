@@ -3,7 +3,6 @@ package com.sopt.tokddak.feature.planning.result
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
 import com.sopt.tokddak.R
 import com.sopt.tokddak.common.toDateFormat
 import com.sopt.tokddak.common.toDecimalFormat
@@ -20,15 +19,16 @@ import kotlinx.android.synthetic.main.activity_planning_result.tv_foodCost
 import kotlinx.android.synthetic.main.activity_planning_result.tv_message
 import kotlinx.android.synthetic.main.activity_planning_result.tv_snackCost
 
-// 모듈화 무조건 필요
 class PlanningResultActivity : AppCompatActivity() {
+
+    var totalBudget = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_planning_result)
 
-        // activityInfo += Activity("dd", 300000, null, 0, false, null, "zzz")
-
+        val intent = intent
+        totalBudget = intent.getIntExtra("budget", 0)
 
         init()
     }
@@ -37,7 +37,7 @@ class PlanningResultActivity : AppCompatActivity() {
 
         bringToFront()
 
-        tv_tripTotalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
+        tv_tripTotalPrice.text = totalBudget.toDecimalFormat()
         tv_tripTitle.text = TripInfo.title
         tv_tripDestination.text = TripInfo.destination
         tv_country.text = TripInfo.country
@@ -111,7 +111,7 @@ class PlanningResultActivity : AppCompatActivity() {
         }
     }
 
-    fun bringToFront() {
+    private fun bringToFront() {
         img_toBack.bringToFront()
         tv_message.bringToFront()
         icn_w.bringToFront()

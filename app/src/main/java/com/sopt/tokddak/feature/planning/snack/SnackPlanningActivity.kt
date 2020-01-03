@@ -25,6 +25,7 @@ import com.sopt.tokddak.feature.planning.shopping.ShoppingPlanningActivity
 import com.sopt.tokddak.feature.planning.transportation.TransportationPlanningActivity
 import kotlinx.android.synthetic.main.activity_snack_planning.*
 import kotlin.math.log
+import kotlin.random.Random
 
 class SnackPlanningActivity : AppCompatActivity() {
 
@@ -33,12 +34,16 @@ class SnackPlanningActivity : AppCompatActivity() {
 
     var selectedCategoryList: ArrayList<String> = ArrayList()
 
+    var totalBudgetInSnack = 0
+    var intentBudget = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_snack_planning)
 
         val intent = intent
-        selectedCategoryList = intent.getStringArrayListExtra("selected category list")
+        selectedCategoryList = intent.getStringArrayListExtra("selected category list")!!
+        totalBudgetInSnack = intent.getIntExtra("budget", 0)
 
         init()
         setList()
@@ -46,15 +51,15 @@ class SnackPlanningActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        intentBudget = totalBudgetInSnack
 
-        TripInfo.tripTotalCost -= snacks.map { it.count * it.avgPrice }.sum()
+        // TripInfo.tripTotalCost -= snacks.map { it.count * it.avgPrice }.sum()
         TripInfo.snackInfoClear()
-        Log.d("총 금액", TripInfo.tripTotalCost.toString())
     }
 
     fun init(){
 
-        tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
+        tv_totalPrice.text = totalBudgetInSnack.toDecimalFormat()
 
 
         rv_snacks.adapter = snackAdapter
@@ -65,12 +70,13 @@ class SnackPlanningActivity : AppCompatActivity() {
         }
 
         btn_done.setOnClickListener {
-            TripInfo.tripTotalCost += snacks.map { it.count * it.avgPrice }.sum()
+            intentBudget += snacks.map { it.count * it.avgPrice }.sum()
             TripInfo.snackInfo += snacks
             // Log.d("테스트", TripInfo.snackInfo.toString())
 
             if(selectedCategoryList.isNullOrEmpty()){
                 val intent = Intent(this, PlanningResultActivity::class.java)
+                intent.putExtra("budget", intentBudget)
                 startActivity(intent)
             } else
                 selectedCategoryList[0].goCategoryIntent()
@@ -79,9 +85,9 @@ class SnackPlanningActivity : AppCompatActivity() {
 
     fun setList() {
         // 서버 평균 가격 통신
-        snacks.add(Snack("카페", 0, 10000, R.drawable.img_snacks_cafe))
-        snacks.add(Snack("디저트", 0, 21000, R.drawable.img_snacks_bakery))
-        snacks.add(Snack("펍 & 바", 0, 30000, R.drawable.img_snacks_pubnbar))
+        snacks.add(Snack("카페", 0, rand(4000, 12000), R.drawable.img_snacks_cafe))
+        snacks.add(Snack("디저트", 0, rand(4000, 12000), R.drawable.img_snacks_bakery))
+        snacks.add(Snack("펍 & 바", 0, rand(9000, 30000), R.drawable.img_snacks_pubnbar))
         snackAdapter.notifyDataSetChanged()
     }
 
@@ -99,8 +105,13 @@ class SnackPlanningActivity : AppCompatActivity() {
             else -> return
         }.apply {
             putExtra("selected category list", passSelectCategoryList)
+            putExtra("budget", intentBudget)
         }
         startActivity(categoryIntent)
+    }
+
+    fun rand(from: Int, to: Int): Int{
+        return Random.nextInt(to - from) + from
     }
 
     private inner class SnackRvAdapter :
@@ -148,7 +159,7 @@ class SnackPlanningActivity : AppCompatActivity() {
 
                 tv_snackCount.text = snacks.map { it.count }.sum().toString()
                 tv_totalPrice.text =
-                    (TripInfo.tripTotalCost + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
+                    (intentBudget + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
             }
 
             btnMinus.setOnClickListener {
@@ -159,7 +170,7 @@ class SnackPlanningActivity : AppCompatActivity() {
 
                     tv_snackCount.text = snacks.map { it.count }.sum().toString()
                     tv_totalPrice.text =
-                        (TripInfo.tripTotalCost + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
+                        (intentBudget + snacks.map { it.count * it.avgPrice }.sum()).toDecimalFormat()
                 }
             }
         }

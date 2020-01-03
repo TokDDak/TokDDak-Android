@@ -57,6 +57,13 @@ interface PlanningService {
         @Path("TripId") TripId: Int,
         @Body body: PostRequestSnackData
     ): Call<PostRequestSnackState>
+
+    @POST("trips/{TripId}")
+    fun requestBudget(
+        @Header("Content-Type") content_type: String,
+        @Path("TripId") TripId: Int,
+        @Body body: PostRequestBudgetData
+        ): Call<PostRequestBudgetState>
 }
 
 data class GetLodgeData(
@@ -190,4 +197,23 @@ data class PostRequestSnackState(
 
 data class PostRequestSnackData(
     val array: List<RequestSnackData>
+)
+
+data class PostRequestBudgetData(
+    val title: String,
+    val start: String,
+    val end: String,
+    val activityBudget: Int,
+    val hotelBudget: Int,
+    val foodBudget: Int,
+    val shoppingBudget: Int,
+    val snackBudget: Int,
+    val transportBudget: Int,
+    val UserId: Int
+)
+
+data class PostRequestBudgetState(
+    val status: Int,
+    val message: String,
+    val success: Boolean
 )
