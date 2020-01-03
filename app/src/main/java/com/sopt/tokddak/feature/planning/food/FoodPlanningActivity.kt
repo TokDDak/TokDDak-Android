@@ -50,14 +50,14 @@ class FoodPlanningActivity : AppCompatActivity() {
         selectedCategoryList = intent.getStringArrayListExtra("selected category list")
 
         init()
-        setList()
         getFoodData()
+
     }
 
     override fun onResume() {
         super.onResume()
-        // 선택된 카테고리 list 복구
 
+        // setList()
 
         // object 저장 초기화
         TripInfo.tripTotalCost -= foods.map { it.count * it.avgPrice }.sum()
@@ -134,10 +134,12 @@ class FoodPlanningActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful){
                         if(response.body()!!.status == 200){
-                            Log.d("테스트", "성공")
+                            Log.d("테스트", response.body()!!.toString())
                             val temp = response.body()!!.foodResult.result
                             if(temp.isNotEmpty()){
                                 foodsData.addAll(temp)
+                                Log.d("테스트 temp", temp.toString())
+                                Log.d("테스트 foodsData", foodsData.toString())
                             }
                         } else{
                             Log.d("테스트", response.body()!!.status.toString())

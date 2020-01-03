@@ -1,6 +1,7 @@
 package com.sopt.tokddak.api
 
 import com.google.gson.annotations.SerializedName
+import com.sopt.tokddak.feature.planning.ActivityData
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -78,7 +79,7 @@ data class GetActivityData(
     val data: List<ActivityData>
 )
 
-data class ActivityData(
+/*data class ActivityData(
     val id: Int,
     val name: String,
     val cost: Int,
@@ -87,4 +88,4 @@ data class ActivityData(
     val url_kl: String,
     val img: String,
     val CityId: Int
-)
+)*/

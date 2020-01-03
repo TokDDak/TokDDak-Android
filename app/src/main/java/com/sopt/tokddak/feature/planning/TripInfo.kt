@@ -11,7 +11,7 @@ object TripInfo {
     var lodgementInfo = listOf<Lodgement>()
     var foodInfo = listOf<Food>()
     var snackInfo = listOf<Snack>()
-    var activityInfo = listOf<Activity>()
+    var activityInfo = listOf<ActivityData>()
     var shoppingInfo: Int = 0
     var transInfo: Int = 0
     var tripTotalCost = 0
@@ -73,7 +73,7 @@ data class Activity(
     var detailInfo: String
 )
 
-/*data class ActivityData(
+data class ActivityData(
     val id: Int,
     val name: String,
     val cost: Int,
@@ -81,5 +81,6 @@ data class Activity(
     val url_mrt: String,
     val url_kl: String,
     val img: String,
-    val CityId: Int
-)*/
+    val CityId: Int,
+    var flag: Boolean = false
+)

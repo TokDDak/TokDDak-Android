@@ -1,7 +1,9 @@
 package com.sopt.tokddak.feature.planning
 
+import android.net.http.SslError
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.SslErrorHandler
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.sopt.tokddak.R
@@ -25,9 +27,29 @@ class WebViewActivity : AppCompatActivity() {
         webView.loadUrl(url)
     }
 
+    override fun onResume() {
+        super.onResume()
+        webView.resumeTimers()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        webView.pauseTimers()
+    }
+
     fun init() {
         webView.settings.javaScriptEnabled = true
         webView.webViewClient = (object : WebViewClient() {
+
+            override fun onReceivedSslError(
+                view: WebView?,
+                handler: SslErrorHandler?,
+                error: SslError?
+            ) {
+                super.onReceivedSslError(view, handler, error)
+                handler!!.proceed()
+            }
+
             override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
                 view!!.loadUrl(url)
                 return true

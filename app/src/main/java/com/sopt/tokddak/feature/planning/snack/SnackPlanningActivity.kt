@@ -66,7 +66,7 @@ class SnackPlanningActivity : AppCompatActivity() {
         btn_done.setOnClickListener {
             TripInfo.tripTotalCost += snacks.map { it.count * it.avgPrice }.sum()
             TripInfo.snackInfo += snacks
-            Log.d("테스트", TripInfo.snackInfo.toString())
+            // Log.d("테스트", TripInfo.snackInfo.toString())
 
             if(selectedCategoryList.isNullOrEmpty()){
                 // TODO: 예산 산정 완료 뷰, activity stack clear

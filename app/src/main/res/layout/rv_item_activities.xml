@@ -14,7 +14,8 @@
         android:background="@drawable/bg_popular"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="center"/>
 
     <TextView
         android:id="@+id/tv_activityName"

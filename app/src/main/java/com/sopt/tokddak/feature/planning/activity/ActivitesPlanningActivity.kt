@@ -12,12 +12,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.sopt.tokddak.R
-import com.sopt.tokddak.api.ActivityData
 import com.sopt.tokddak.api.GetActivityData
 import com.sopt.tokddak.api.PlanningServiceImpl
 import com.sopt.tokddak.common.toDecimalFormat
-import com.sopt.tokddak.feature.planning.Activity
+import com.sopt.tokddak.feature.planning.ActivityData
 import com.sopt.tokddak.feature.planning.TripInfo
 import com.sopt.tokddak.feature.planning.food.FoodPlanningActivity
 import com.sopt.tokddak.feature.planning.lodgement.LodgementPlanningActivity
@@ -31,12 +32,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ActivitesPlanningActivity : AppCompatActivity() {
-    private val activities = mutableListOf<Activity>()
-    private val activityAdapter: ActivityRvAdapter = ActivityRvAdapter()
+    // private val activities = mutableListOf<ActivityData>()
 
     var selectedCategoryList: ArrayList<String> = ArrayList()
 
-    var activitiesData = arrayListOf<ActivityData>()
+    var activitiesData = mutableListOf<ActivityData>()
+
+    private lateinit var activityAdapter: ActivityRvAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,23 +47,27 @@ class ActivitesPlanningActivity : AppCompatActivity() {
         val intent = intent
         selectedCategoryList = intent.getStringArrayListExtra("selected category list")!!
 
+
+        getActivity()
         init()
-        makeDummy()
+        // makeDummy()
     }
 
     override fun onResume() {
         super.onResume()
-        TripInfo.tripTotalCost -= TripInfo.activityInfo.map { it.price }.sum()
+        TripInfo.tripTotalCost -= TripInfo.activityInfo.map { it.cost }.sum()
         tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
 
         Log.d("총 금액", TripInfo.tripTotalCost.toString())
-        Log.d("총 금액 액티", activities.toString())
+
+        Log.d("테스트 resume", activitiesData.toString())
+        // Log.d("총 금액 액티", activities.toString())
 
     }
 
     private fun init() {
-        rv_activities.adapter = activityAdapter
-        rv_activities.layoutManager = LinearLayoutManager(this)
+
+        // Log.d("테스트 init", activitiesData.toString())
 
         tv_totalPrice.text = TripInfo.tripTotalCost.toDecimalFormat()
 
@@ -70,8 +76,8 @@ class ActivitesPlanningActivity : AppCompatActivity() {
         }
 
         btn_done.setOnClickListener {
-            TripInfo.activityInfo += activities.filter { it.flag }
-            TripInfo.tripTotalCost += activities.filter { it.flag }.map { it.price }.sum()
+            TripInfo.activityInfo += activitiesData.filter { it.flag }
+            TripInfo.tripTotalCost += activitiesData.filter { it.flag }.map { it.cost }.sum()
             // Log.d("테스트", TripInfo.activityInfo.toString())
 
             Log.d("테스트", selectedCategoryList.toString())
@@ -84,12 +90,12 @@ class ActivitesPlanningActivity : AppCompatActivity() {
         }
     }
 
-    private fun makeDummy() {
+    /*private fun makeDummy() {
         activities.add(Activity("파리", 1000, null, R.drawable.img_test, false, null, "ㅎㅎㅎ"))
         activities.add(Activity("세부", 2000, null, R.drawable.img_test, false, null, "ㅋㅋㅋ"))
         activities.add(Activity("뉴욕", 3000, null, R.drawable.img_test, false, null, "ㅗㅗㅗ"))
         activityAdapter.notifyDataSetChanged()
-    }
+    }*/
 
     private fun String.goCategoryIntent() {
         var passSelectCategoryList = arrayListOf<String>()
@@ -132,10 +138,15 @@ class ActivitesPlanningActivity : AppCompatActivity() {
                 ) {
                     if (response.isSuccessful){
                         if(response.body()!!.status == 200){
-                            Log.d("테스트", "성공")
+                            Log.d("테스트", response.body()!!.data.toString())
                             val temp = response.body()!!.data
                             if(temp.isNotEmpty()){
                                 activitiesData.addAll(temp)
+                                Log.d("테스트", activitiesData.toString())
+                                activityAdapter = ActivityRvAdapter()
+                                rv_activities.adapter = activityAdapter
+                                rv_activities.layoutManager = LinearLayoutManager(this@ActivitesPlanningActivity)
+                                activityAdapter.notifyDataSetChanged()
                             }
                         } else{
                             Log.d("테스트", response.body()!!.status.toString())
@@ -154,15 +165,16 @@ class ActivitesPlanningActivity : AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActivityViewHolder {
             val view: View = layoutInflater.inflate(R.layout.rv_item_activities, parent, false)
+
             return ActivityViewHolder(view)
         }
 
         override fun getItemCount(): Int {
-            return activities.size
+            return activitiesData.size
         }
 
         override fun onBindViewHolder(holder: ActivityViewHolder, position: Int) {
-            holder.bind(activities[position])
+            holder.bind(activitiesData[position])
         }
     }
 
@@ -173,16 +185,11 @@ class ActivitesPlanningActivity : AppCompatActivity() {
         val btnSelect: ImageView = v.findViewById(R.id.btn_select)
         val ctnActivity: ConstraintLayout = v.findViewById(R.id.ctn_activity)
 
-        fun bind(data: Activity) {
+        fun bind(data: ActivityData) {
             tvName.text = data.name
-            tvPrice.text = data.price.toString()
-            imgActivity.setImageDrawable(
-                ResourcesCompat.getDrawable(
-                    itemView.resources,
-                    data.actImg,
-                    null
-                )
-            )
+            tvPrice.text = data.cost.toDecimalFormat() + "원"
+            Glide.with(this@ActivitesPlanningActivity).load(data.img).transform(RoundedCorners(3)).into(imgActivity)
+            imgActivity.setBackgroundResource(R.drawable.bg_popular)
 
             btnSelect.setOnClickListener {
                 if (data.flag) {
@@ -192,13 +199,13 @@ class ActivitesPlanningActivity : AppCompatActivity() {
                     setButtonActive()
                     data.flag = true
                 }
-                tv_totalCount.text = activities.filter { it.flag }.size.toString()
+                tv_totalCount.text = activitiesData.filter { it.flag }.size.toString()
                 tv_totalPrice.text =
-                    (TripInfo.tripTotalCost + activities.filter { it.flag }.map { it.price }.sum()).toString()
+                    (TripInfo.tripTotalCost + activitiesData.filter { it.flag }.map { it.cost }.sum()).toString()
             }
 
             ctnActivity.setOnClickListener {
-                val fm = ActivityDetailFragment(data.name, data.price, data.detailInfo)
+                val fm = ActivityDetailFragment(data.name, data.cost, data.content, data.url_kl, data.url_mrt)
                 fm.show(supportFragmentManager, null)
             }
         }

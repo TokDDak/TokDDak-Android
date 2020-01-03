@@ -30,7 +30,7 @@ class PlanningResultActivity : AppCompatActivity() {
         lodgementInfo += Lodgement("zz", 2, 2000)
         foodInfo += Food("fff", 2, 300, 0)
         snackInfo += Snack("fff", 2, 100, 0)
-        activityInfo += Activity("dd", 300000, null, 0, false, null, "zzz")
+        // activityInfo += Activity("dd", 300000, null, 0, false, null, "zzz")
 
 
         init()
@@ -83,7 +83,7 @@ class PlanningResultActivity : AppCompatActivity() {
             tv_activityCost.setTextColor(Color.parseColor("#d5d5d5"))
             tv_activityCost.text = "0원"
         } else {
-            tv_activityCost.text = activityInfo.map { it.price }.sum().toDecimalFormat()
+            tv_activityCost.text = activityInfo.map { it.cost }.sum().toDecimalFormat()
         }
 
         // shopping 설정
